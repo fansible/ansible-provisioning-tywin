@@ -1,0 +1,11 @@
+---
+
+- include: install.deb.yml
+  when: ansible_pkg_mgr == 'apt'
+
+- include: install.yum.yml
+  when: ansible_pkg_mgr == 'yum'
+
+- name: Install NPM modules
+  npm: name={{item}} global=yes
+  with_items: nodejs_npm_modules

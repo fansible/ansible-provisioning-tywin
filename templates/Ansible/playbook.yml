@@ -1,0 +1,23 @@
+---
+
+- name: Provision {{ project_name }}
+  hosts: {{ hosts }}
+  sudo: {{ sudo }}
+  vars:
+    timezone: {{ timezone }}
+    project_name: {{ project_name }}
+  vars_files:
+{% for service in selected_services %}
+    - vars/{{ service }}.yml
+{% endfor %}
+  roles:
+{% for service in selected_services %}
+    - { role: {{ known_services[service].role }}, tags: {{ service }} }
+{% endfor %}
+
+- name: Vagrant provisioning
+  hosts: vagrant
+  sudo: yes
+  gather_facts: true
+  roles:
+   - MaximeThoonsen.php5-xdebug

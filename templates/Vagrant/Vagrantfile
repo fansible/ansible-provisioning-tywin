@@ -1,0 +1,31 @@
+$HOSTNAME = "{{ project_name }}.dev"
+$BOX = "{{ vagrant.box }}"
+$IP = "{{ vagrant.ip }}"
+$MEMORY = ENV.has_key?('VM_MEMORY') ? ENV['VM_MEMORY'] : "{{ vagrant.memory }}"
+$CPUS = ENV.has_key?('VM_CPUS') ? ENV['VM_CPUS'] : "{{ vagrant.cpus }}"
+$EXEC_CAP = ENV.has_key?('VM_EXEC_CAP') ? ENV['VM_EXEC_CAP'] : "{{ vagrant.exec }}"
+
+Vagrant.configure("2") do |config|
+  config.vm.hostname = $HOSTNAME
+  config.vm.box = $BOX
+  config.vm.network :private_network, ip: $IP
+  config.ssh.forward_agent = true
+
+  config.vm.synced_folder "{{ vagrant.src }}", "/var/www/{{ project_name }}/current", type: "nfs"
+
+  config.vm.provider "virtualbox" do |v|
+    v.name = "{{ project_name }}"
+    v.customize ["modifyvm", :id, "--cpuexecutioncap", $EXEC_CAP]
+    v.customize ["modifyvm", :id, "--memory", $MEMORY]
+    v.customize ["modifyvm", :id, "--cpus", $CPUS]
+  end
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "devops/provisioning/playbook.yml"
+    ansible.limit = "vagrant"
+    ansible.inventory_path = "devops/provisioning/hosts/vagrant"
+    ansible.verbose = "v"
+    #ansible.tags = "config"
+    #ansible.raw_arguments  = "--vault-password-file=password.txt"
+  end
+end

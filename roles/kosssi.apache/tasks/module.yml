@@ -1,0 +1,19 @@
+---
+
+- name: Disable apache module
+  shell:
+    a2dismod {{ item }}
+  register: apache_cmd
+  changed_when: apache_cmd.stdout.endswith(' already disabled') == false
+  notify: Restart apache
+  with_items: apache_module_disable
+  when: apache_module_disable != false
+
+- name: Enable apache module
+  shell:
+    a2enmod {{ item }}
+  register: apache_cmd
+  changed_when: apache_cmd.stdout.endswith(' already enabled') == false
+  notify: Restart apache
+  with_items: apache_module_enable
+  when: apache_module_enable != false

@@ -1,0 +1,12 @@
+---
+
+- name: Get date for composer update
+  shell:
+    date --date='{{ composer_update_day }} days ago' +'%s'
+  register: composer_date
+  changed_when: False
+
+- name: Update composer if necessary
+  shell:
+    "{{ composer_path }} selfupdate"
+  when: composer_date.stdout|int > composer_stat.stat.mtime|int

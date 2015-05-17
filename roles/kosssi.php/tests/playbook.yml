@@ -1,0 +1,9 @@
+---
+
+- hosts: all
+  sudo: true
+  pre_tasks:
+    - apt: update_cache=yes
+      when: ansible_ssh_user == 'vagrant'
+  roles:
+    - { role: ../../ansible-role-php, tags: php }

@@ -1,0 +1,7 @@
+---
+
+- name: Update the apt cache.
+  apt:
+    cache_valid_time="{{ apt_cache_valid_time }}"
+    update_cache=yes
+  when: apt_update

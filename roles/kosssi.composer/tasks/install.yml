@@ -1,0 +1,8 @@
+---
+
+- name: Download and install Composer into the target directory.
+  shell:
+    php -r "readfile('https://getcomposer.org/installer');" |
+    php -- --install-dir={{ composer_path|dirname }} --filename={{ composer_path|basename }}
+    creates={{ composer_path }}
+  environment: proxy_env

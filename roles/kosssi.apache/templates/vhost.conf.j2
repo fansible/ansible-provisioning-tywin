@@ -1,0 +1,29 @@
+DirectoryIndex {{ item.index | default('index.html') }}
+{% if item.extra is defined %}{% for extra in item.extra %}
+    {{ extra }}
+{% endfor %}{% endif %}
+
+<VirtualHost *:{{ item.port | default('80') }}>
+    ServerName {{ item.servername }}
+    DocumentRoot {{ item.documentroot }}
+    ErrorLog {{ item.logDir | default('${APACHE_LOG_DIR}') }}/error.log
+    CustomLog {{ item.logDir | default('${APACHE_LOG_DIR}') }}/access.log combined
+    {% if item.serveradmin is defined %}ServerAdmin {{ item.serveradmin }}{% endif %}
+
+{% if item.virtualhost_extra is defined %}{% for extra in item.virtualhost_extra %}
+    {{ extra }}
+{% endfor %}{% endif %}
+
+    <Directory "{{ item.documentroot }}">
+        AllowOverride All
+        Options -Indexes +FollowSymLinks
+        Order allow,deny
+        Allow from all
+        Require all granted
+
+{% if item.directory_extra is defined %}{% for extra in item.directory_extra %}
+        {{ extra }}
+{% endfor %}{% endif %}
+
+    </Directory>
+</VirtualHost>

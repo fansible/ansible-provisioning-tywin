@@ -1,0 +1,40 @@
+server {
+    listen      {{ port }};
+
+    server_name {{ inventory_hostname }};
+    root        /var/www/{{ project_name }}/current/web;
+
+    error_log /var/www/{{ project_name }}/current/app/logs/nginx.error.log;
+    access_log /var/www/{{ project_name }}/current/app/logs/nginx.access.log;
+
+    index app_dev.php;
+    try_files $uri @rewrite;
+
+    gzip            on;
+    gzip_min_length 1000;
+    gzip_comp_level 9;
+    gzip_proxied    any;
+    gzip_types      application/javascript application/x-javascript application/json text/css;
+
+    add_header X-Robots-Tag "noindex, nofollow";
+
+    location @rewrite {
+        rewrite ^/?(.*)$ /app.php/$1 last;
+    }
+
+    location ~ ^/(app|app_dev)\.php {
+        fastcgi_index $1.php;
+        fastcgi_pass   unix:/var/run/php5-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+
+        # Added to avoid 502 Bad Gateway errors
+        fastcgi_buffer_size 512k;
+        fastcgi_buffers 16 512k;
+    }
+
+    location ~* \.(css|txt|xml|js|gif|jpe?g|png|ico)$ {
+        expires 1y;
+        log_not_found off;
+    }
+}

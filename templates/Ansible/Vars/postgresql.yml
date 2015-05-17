@@ -1,0 +1,16 @@
+---
+
+# List of databases to be created
+postgresql_databases:
+  - name: "{{ database.name }}"
+
+# List of users to be created
+postgresql_users:
+  - name: "{{ database.user }}"
+    pass: "{{ database.password }}"
+
+postgresql_user_privileges:
+  - name: "{{ database.user }}"  # user name
+    db: "{{ database.name }}"    # database
+    priv: "ALL"                  # privilege string format: example: INSERT,UPDATE/table:SELECT/anothertable:ALL
+    role_attr_flags: "SUPERUSER" # role attribute flags

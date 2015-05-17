@@ -1,0 +1,14 @@
+---
+
+- name: Add repository to install last PHP version
+  apt_repository:
+    repo="{{ php_repository }}"
+    update_cache=yes
+  when: php_repository != false
+
+- name: Install packages.
+  apt:
+    pkg="{{ item }}"
+    state=present
+  with_items: php_install
+  when: php_install != false

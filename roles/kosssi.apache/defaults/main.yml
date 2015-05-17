@@ -1,0 +1,23 @@
+---
+
+apache_repository: ppa:ptn107/apache
+
+apache_install:
+  - apache2
+
+apache_module_disable: false
+apache_module_enable:
+  - rewrite
+
+apache_site_disable:
+  - 000-default
+  - default-ssl
+apache_site_enable:
+  - test.dev
+
+apache_vhosts:
+  - servername: test.dev
+    index: index.php
+    documentroot: /var/www/test
+    directory_extra:
+      - RewriteEngine On

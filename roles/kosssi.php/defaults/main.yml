@@ -1,0 +1,15 @@
+---
+
+php_repository: false
+php_timezone: Europe/Paris
+
+php_install:
+  - php5
+
+php_configure:
+  - file: /etc/php5/cli/php.ini
+    values:
+      - { section: date, key: date.timezone, value: '{{ php_timezone }}' }
+  - file: /etc/php5/apache2/php.ini
+    values:
+      - { section: date, key: date.timezone, value: '{{ php_timezone }}' }
