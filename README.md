@@ -57,8 +57,10 @@ Example:
 What you can do:
 
 1) Add your roles in the `devops/provisioning/roles` directory. 
+
 2) Modify the playbook to call your roles.
-3) Overide vars (in `devops/provisioning/vars`)
+
+3) Overide vars (in `devops/provisioning/vars`).
 
 
 
