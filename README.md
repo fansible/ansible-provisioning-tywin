@@ -1,4 +1,5 @@
-# Fansible Tywin: simple Ansible provisioning for your projects
+# Fansible Tywin
+Create easly your Ansible provisioning
 
 ## Still WIP
 This is still under development: it is not a reliable repository yet
@@ -7,7 +8,7 @@ This is still under development: it is not a reliable repository yet
 
 ### Installation
 
-    composer require fansible/devops-bundle *@dev --dev
+    composer require fansible/tywin *@dev --dev
 
 ### Add some conf
 Create the `.fansible.yml` file in the root diretory
