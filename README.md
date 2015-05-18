@@ -26,7 +26,10 @@ You can now found your provisioning in the `devops` directory
 
 3) Provision the VM
 You can create the VM with `vagrant up`.
+
 Provision it with `vagrant provision`.
+
+Your VM is now ready ! =)
 
 ### Database configuration
 Change the value of the database configuration in `devops/provisioning/hosts/group_vars/vagrant`
