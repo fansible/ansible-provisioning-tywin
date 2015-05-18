@@ -24,7 +24,7 @@ Provision it with `vagrant provision`.
 ### Database configuration
 Change the value of the database configuration in `devops/provisioning/hosts/group_vars/vagrant`
 
-### Add some conf: create a 
+### Add some conf
 Create the `.fansible.yml` file in the root diretory
 Example:
 
