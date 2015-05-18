@@ -6,7 +6,8 @@ This is still under development: it is not a reliable repository yet
 ## How to use it
 
 ### Installation
-composer require fansible/devops-bundle *@dev --dev
+
+    composer require fansible/devops-bundle *@dev --dev
 
 ### Add some conf
 Create the `.fansible.yml` file in the root diretory
