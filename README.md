@@ -1,23 +1,30 @@
 # Fansible Tywin
 Create easily your Ansible provisioning
 
-## Still WIP
-This is still under development: it is not a reliable repository yet
+##Requirements
+This have been tested with the Ubuntu OS. It should work with many other various Linux distribution. Feel free to share your advice for the other OS..
+You will need to install if you haven't done yet:
+
+* [Ansible](http://docs.ansible.com/intro_installation.html)
+* [Composer](https://getcomposer.org/download/)
+* [Vagrant](http://www.vagrantup.com/downloads.html)
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
+* nfs `sudo apt-get install nfs-kernel-server`
 
 ## How to use it
 
-### Installation
+1) Installation
 
     composer require fansible/tywin *@dev --dev
 
-### Generate the default conf
+2) Generate the default conf
 You can generate the default conf by running in the root directory of your project:
 
     python vendor/fansible/tywin/generate.py
     
 You can now found your provisioning in the `devops` directory
 
-### Provision the VM
+3) Provision the VM
 You can create the VM with `vagrant up`.
 Provision it with `vagrant provision`.
 
@@ -25,7 +32,8 @@ Provision it with `vagrant provision`.
 Change the value of the database configuration in `devops/provisioning/hosts/group_vars/vagrant`
 
 ### Add some conf
-Create the `.fansible.yml` file in the root diretory
+Create a `.fansible.yml` file in the root directory before you generate anything. 
+
 Example:
 
     project_name: fansible-devops
@@ -41,5 +49,14 @@ Example:
       cpus: 1
       exec: 100
       src: .
+
+### Customize your provisioning
+What you can do:
+
+1) Add your roles in the `devops/provisioning/roles` directory. 
+2) Modify the playbook to call your roles.
+3) Overide vars (in `devops/provisioning/vars`)
+
+
 
 
