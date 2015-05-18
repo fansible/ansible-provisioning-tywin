@@ -1,5 +1,5 @@
 # Fansible Tywin
-Create easly your Ansible provisioning
+Create easily your Ansible provisioning
 
 ## Still WIP
 This is still under development: it is not a reliable repository yet
