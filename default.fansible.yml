@@ -1,11 +1,12 @@
 project_name: test-fansible
 timezone: "Europe/Paris"
+port: 80
 hosts: all
 sudo: "true"
 
 services:
   - apt
-  - php
+  - MaximeThoonsen.php
   - composer
   - nginx
   - mysql
@@ -13,15 +14,14 @@ services:
 known_services:
   composer: { role: kosssi.composer }
   apt: { role: kosssi.apt }
-  php: { role: kosssi.php }
+  kosssi.php: { role: kosssi.php }
+  MaximeThoonsen.php: { role: MaximeThoonsen.php }
   nginx: { role: nginx-symfony }
   apache: { role: kosssi.apache }
   mysql: { role: ANXS.mysql }
   postgresl: { role: ANXS.postgresl }
   nodejs: { role: Stouts.nodejs }
   xdebug: { role: MaximeThoonsen.php5-xdebug }
-
-port: 80
 
 vagrant:
   ip: 10.0.0.10

@@ -1,0 +1,18 @@
+{
+    "name": "fansible/tywin",
+    "license": "MIT",
+    "type": "Devops",
+    "description": "This will help you to generate a provisioning to run your apps",
+    "keywords": ["Generate Provisioning Server Ansible Security"],
+    "authors": [
+        {
+            "name": "Simon Constans",
+            "email": "simonc@linux.com"
+        },
+        {
+            "name": "Maxime Thoonsen",
+            "email": "maximet@theodo.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}

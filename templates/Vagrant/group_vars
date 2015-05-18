@@ -1,2 +1,12 @@
 ---
 dev_env: true
+
+{% for service in selected_services %}
+{% if service == 'mysql' %}
+mysql_databases:
+  - name: vagrant
+mysql_user:
+  name: vagrant
+  password: vagrant
+{% endif %}
+{% endfor %}

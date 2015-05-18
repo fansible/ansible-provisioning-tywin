@@ -6,10 +6,12 @@
   vars:
     timezone: {{ timezone }}
     project_name: {{ project_name }}
+    port: {{ port }}
   vars_files:
 {% for service in selected_services %}
     - vars/{{ service }}.yml
 {% endfor %}
+
   roles:
 {% for service in selected_services %}
     - { role: {{ known_services[service].role }}, tags: {{ service }} }

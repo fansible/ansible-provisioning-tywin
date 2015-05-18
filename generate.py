@@ -18,6 +18,7 @@ TEMPLATE_ENVIRONMENT = Environment(
 )
 
 def main(argv):
+    project_type_finder()
     context = build_context()
     create_directories()
     copy_vars_files(context)
@@ -41,9 +42,17 @@ def main(argv):
     if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS+'/group_vars/vagrant'):
         generate_template_file('Vagrant/group_vars', context, DIRECTORY_PROVISIONING_HOSTS+'/group_vars/vagrant')
 
-
     print "Provisioning generated"
 
+#TODO:add more project types
+def project_type_finder():
+    if os.path.exists('composer.json'):
+        if 'symfony/symfony' in open('composer.json').read():
+            print 'Symfony project detected...'
+    else:
+        print 'Project type unknown...'
+
+#TODO: make it pretty
 #Create directories
 def create_directories():
     if not os.path.exists(DIRECTORY_DEVOPS):
@@ -102,12 +111,15 @@ def generate_template_file(template_filename, context, dest):
         file_rendered = render_template(template_filename, context)
         ft.write(file_rendered)
 
+#TODO: render only the file that are not empty
 def copy_vars_files(context):
     for key, service in enumerate(context['selected_services']):
-        shutil.copy(
-            DIRECTORY_TYWIN_TEMPLATES+'/Ansible/Vars/'+service+'.yml',
+        generate_template_file(
+            '/Ansible/Vars/'+service+'.yml',
+            context,
             DIRECTORY_PROVISIONING_VARS+'/'+service+'.yml'
         )
 
+#TODO: create verbose options
 if __name__ == "__main__":
     main(sys.argv[1:])

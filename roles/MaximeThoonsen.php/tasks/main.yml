@@ -1,0 +1,39 @@
+---
+
+- name: Ensure PHP packages are installed.
+  apt:
+    name={{ item }}
+    state=installed
+  with_items: php_packages
+
+- name: Create mods-available directory
+  file:
+    path={{ php_conf_basepath }}/mods-available
+    state=directory
+  when: php_mods is defined
+
+- name: Place PHP configuration files in place.
+  template:
+    src={{ item.name }}.j2
+    dest={{ php_conf_basepath }}{{ item.dest }}/{{ item.name }}
+    owner=root
+    group=root
+    mode=644
+  with_items: php_conf_files
+
+- name: Create PHP modules symlinks
+  file:
+    src={{ php_conf_basepath }}/mods-available/{{ item.name }}
+    dest={{ php_conf_basepath }}{{ item.dest }}/conf.d/{{ item.size }}-{{ item.name }}
+    state=link
+    owner=root
+    group=root
+  with_items: php_mods
+  when: php_mods is defined
+
+- name: Ensure php-fpm is started and enabled at boot (if configured).
+  service:
+    name=php5-fpm
+    state=started
+    enabled=yes
+  when: php_enable_php_fpm
