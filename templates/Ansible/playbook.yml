@@ -16,6 +16,7 @@
 {% for service in selected_services %}
     - { role: {{ known_services[service].role }}, tags: {{ service }} }
 {% endfor %}
+{% if 'php' in selected_services %}
 
 - name: Vagrant provisioning
   hosts: vagrant
@@ -23,3 +24,4 @@
   gather_facts: true
   roles:
    - MaximeThoonsen.php5-xdebug
+{% endif %}
