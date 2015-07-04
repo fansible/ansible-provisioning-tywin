@@ -44,7 +44,10 @@ def main(argv):
 #TODO:add more project types
 def project_type_finder(project_config):
     if os.path.exists('composer.json'):
-        if 'symfony/symfony' in open('composer.json').read():
+        composer_json = read_yaml_file_and_return_dict('composer.json')
+        if 'name' in composer_json:
+            project_config['project_name'] = composer_json['name']
+        if 'symfony/symfony' in composer_json['require']:
             print 'Symfony project detected...'
     else:
         print 'Project type unknown...'
