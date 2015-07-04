@@ -17,7 +17,8 @@ DIRECTORY_TYWIN_TEMPLATES_ANSIBLE_VARS = DIRECTORY_TYWIN_TEMPLATES_ANSIBLE+'/Var
 
 #Files
 FANSIBLE_YAML = '.fansible.yml'
-DEFAULT_FANSIBLE_YAML = DIRECTORY_TYWIN+'/default.fansible.yml'
+DEFAULT_SYMFONY_YAML = DIRECTORY_TYWIN+'/default.symfony.yml'
+DEFAULT_NODEJS_YAML = DIRECTORY_TYWIN+'/default.nodejs.yml'
 KNOWN_SERVICES = DIRECTORY_TYWIN+'/known_services.yml'
 
 #Configs
@@ -28,10 +29,9 @@ TEMPLATE_ENVIRONMENT = Environment(
 )
 
 def main(argv):
+    project_config = project_type_finder()
     #Build config reading .fansible.yml file
-    project_config = build_config()
-    #Useless for the moment
-    project_type_finder(project_config)
+    build_config(project_config)
     #Create all the needed directories
     create_directories()
     #Copy all the roles files
@@ -42,15 +42,29 @@ def main(argv):
     print "The provisioning has been generated. Check out the `devops` directory"
 
 #TODO:add more project types
-def project_type_finder(project_config):
+def project_type_finder():
+    #Php projects
     if os.path.exists('composer.json'):
         composer_json = read_yaml_file_and_return_dict('composer.json')
-        if 'name' in composer_json:
-            project_config['project_name'] = composer_json['name']
         if 'symfony/symfony' in composer_json['require']:
             print 'Symfony project detected...'
-    else:
-        print 'Project type unknown...'
+            project_config = read_yaml_file_and_return_dict(DEFAULT_SYMFONY_YAML)
+            if 'name' in composer_json:
+                project_config['project_name'] = composer_json['name']
+
+            return project_config
+    #NodeJs projects
+    if os.path.exists('package.json'):
+        print 'NodeJs project detected...'
+        project_config = read_yaml_file_and_return_dict(DEFAULT_NODEJS_YAML)
+        package_json = read_yaml_file_and_return_dict('package.json')
+        if 'name' in package_json:
+            project_config['project_name'] = package_json['name']
+
+        return project_config
+
+    print 'Project type unknown yet. This program only know Symfony and Nodejs projects.'
+    exit()
 
 #TODO: make it pretty
 #Create directories
@@ -71,18 +85,14 @@ def create_directories():
         os.makedirs(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS)
 
 # Build the tree of vars that will be used to generate template files
-def build_config():
-
+def build_config(project_config):
     #TODO: create a serie of question to generate a custom fansible yaml file
     config_fansible = read_yaml_file_and_return_dict(FANSIBLE_YAML)
-    config_default = read_yaml_file_and_return_dict(DEFAULT_FANSIBLE_YAML)
+    # Overide the default project config with the .fansible.yml config
+    overide_dict(project_config, config_fansible)
+
     #TODO:change that for a more dynamic way (reading the roles directory)
     known_services = read_yaml_file_and_return_dict(KNOWN_SERVICES)
-
-    # Overide the default config with the project config
-    overide_dict(config_default, config_fansible)
-    # Just to be clear:
-    project_config = config_default
 
     project_config["selected_services"] = []
     project_config["vars_files"] = []
