@@ -3,12 +3,9 @@
 - name: Provision {{ project_name }}
   hosts: {{ hosts }}
   sudo: {{ sudo }}
-  vars:
-    timezone: {{ timezone }}
-    project_name: {{ project_name }}
-    port: {{ port }}
   vars_files:
-{% for service in selected_services %}
+    - vars/main.yml
+{% for service in vars_files %}
     - vars/{{ service }}.yml
 {% endfor %}
 

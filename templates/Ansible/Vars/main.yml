@@ -1,0 +1,5 @@
+---
+#PUT here your main variable
+timezone: {{ timezone }}
+project_name: {{ project_name }}
+port: {{ port }}
