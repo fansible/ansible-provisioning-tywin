@@ -11,15 +11,16 @@ DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS = DIRECTORY_PROVISIONING+'/group_vars'
 DIRECTORY_PROVISIONING_FANSIBLE_ROLES = DIRECTORY_PROVISIONING_ROLES+'/fansible-roles'
 DIRECTORY_TYWIN = os.path.dirname(os.path.abspath(__file__))
 DIRECTORY_TYWIN_ROLES = DIRECTORY_TYWIN+'/roles'
+DIRECTORY_TYWIN_CONFIG = DIRECTORY_TYWIN+'/config'
 DIRECTORY_TYWIN_TEMPLATES = DIRECTORY_TYWIN+'/templates'
 DIRECTORY_TYWIN_TEMPLATES_ANSIBLE = DIRECTORY_TYWIN_TEMPLATES+'/Ansible'
 DIRECTORY_TYWIN_TEMPLATES_ANSIBLE_VARS = DIRECTORY_TYWIN_TEMPLATES_ANSIBLE+'/Vars'
 
 #Files
 FANSIBLE_YAML = '.fansible.yml'
-DEFAULT_SYMFONY_YAML = DIRECTORY_TYWIN+'/default.symfony.yml'
-DEFAULT_NODEJS_YAML = DIRECTORY_TYWIN+'/default.nodejs.yml'
-KNOWN_SERVICES = DIRECTORY_TYWIN+'/known_services.yml'
+DEFAULT_SYMFONY_YAML = DIRECTORY_TYWIN_CONFIG+'/default.symfony.yml'
+DEFAULT_NODEJS_YAML = DIRECTORY_TYWIN_CONFIG+'/default.nodejs.yml'
+KNOWN_SERVICES = DIRECTORY_TYWIN_CONFIG+'/known_services.yml'
 
 #Configs
 TEMPLATE_ENVIRONMENT = Environment(
@@ -46,11 +47,12 @@ def project_type_finder():
     #Php projects
     if os.path.exists('composer.json'):
         composer_json = read_yaml_file_and_return_dict('composer.json')
-        if 'symfony/symfony' in composer_json['require']:
-            print 'Symfony project detected...'
-            project_config = read_yaml_file_and_return_dict(DEFAULT_SYMFONY_YAML)
-            if 'name' in composer_json:
-                project_config['project_name'] = composer_json['name']
+        if 'require' in composer_json:
+            if 'symfony/symfony' in composer_json['require']:
+                print 'Symfony project detected...'
+                project_config = read_yaml_file_and_return_dict(DEFAULT_SYMFONY_YAML)
+                if 'name' in composer_json:
+                    project_config['project_name'] = composer_json['name']
 
             return project_config
     #NodeJs projects
