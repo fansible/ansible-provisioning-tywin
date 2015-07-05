@@ -198,9 +198,14 @@ def generate_basic_provisioning_files_if_they_dont_exist(project_config):
     #generate the vagrantfile if it doesn't exist
     if not os.path.exists('Vagrantfile'):
         generate_template_file('Vagrantfile', project_config, 'Vagrantfile')
+    #TODO: refacto use a function
     #generate the vagrant inventory file if doesn't exist
     if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS+'/vagrant'):
         generate_template_file('hosts/vagrant', project_config, DIRECTORY_PROVISIONING_HOSTS+'/vagrant')
+    if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS+'/staging'):
+        generate_template_file('hosts/staging', project_config, DIRECTORY_PROVISIONING_HOSTS+'/staging')
+    if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS+'/prod'):
+        generate_template_file('hosts/prod', project_config, DIRECTORY_PROVISIONING_HOSTS+'/prod')
     #generate group_vars vars files if they don't exist
     if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/vagrant'):
         generate_template_file('group_vars/vagrant', project_config, DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/vagrant')
