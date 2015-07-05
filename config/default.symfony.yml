@@ -5,6 +5,7 @@ hosts: all
 sudo: "true"
 
 services:
+  - apt
   - MaximeThoonsen.php
   - composer
   - nginx-symfony

@@ -1,3 +1,4 @@
+#TODO: put back apt
 #TODO: create a nginx role for node project
 #TODO: improve roles management
 #TODO: add mongodb role
