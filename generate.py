@@ -4,6 +4,7 @@
 #TODO: add redis role
 #TODO: add elasticsearch role
 #TODO: read db conf for nodejs project
+#TODO: Put a tywin picture in the readme
 
 import yaml, os, shutil, sys
 from jinja2 import Environment, FileSystemLoader
@@ -190,34 +191,20 @@ def generate_basic_provisioning_files_if_they_dont_exist(project_config):
     #Copy ansible.cfg
     if not os.path.exists('ansible.cfg'):
         shutil.copy(DIRECTORY_TYWIN_TEMPLATES+'/Ansible/ansible.cfg', 'ansible.cfg')
-    #generate playbooks if not exists
-    if not os.path.exists(DIRECTORY_PROVISIONING+'/playbook.yml'):
-        generate_template_file('Ansible/playbook.yml', project_config, DIRECTORY_PROVISIONING+'/playbook.yml')
-    # We don't override main vars file
-    if not os.path.exists(DIRECTORY_PROVISIONING_VARS+'/main.yml'):
-        generate_template_file(
-            '/Ansible/Vars/main.yml',
-            project_config,
-            DIRECTORY_PROVISIONING_VARS+'/main.yml'
-        )
-    #generate the vagrantfile if it doesn't exist
-    if not os.path.exists('Vagrantfile'):
-        generate_template_file('Vagrantfile', project_config, 'Vagrantfile')
-    #TODO: refacto use a function
-    #generate the vagrant inventory file if doesn't exist
-    if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS+'/vagrant'):
-        generate_template_file('hosts/vagrant', project_config, DIRECTORY_PROVISIONING_HOSTS+'/vagrant')
-    if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS+'/staging'):
-        generate_template_file('hosts/staging', project_config, DIRECTORY_PROVISIONING_HOSTS+'/staging')
-    if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS+'/prod'):
-        generate_template_file('hosts/prod', project_config, DIRECTORY_PROVISIONING_HOSTS+'/prod')
-    #generate group_vars vars files if they don't exist
-    if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/vagrant'):
-        generate_template_file('group_vars/vagrant', project_config, DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/vagrant')
-    if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/staging'):
-        generate_template_file('group_vars/staging', project_config, DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/staging')
-    if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/prod'):
-        generate_template_file('group_vars/prod', project_config, DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/prod')
+
+    generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING+'/playbook.yml', 'Ansible/playbook.yml', project_config)
+    generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_VARS+'/main.yml', 'Ansible/Vars/main.yml', project_config)
+    generate_file_if_it_doesnt_exist('Vagrantfile', 'Vagrantfile', project_config)
+    generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_HOSTS+'/vagrant', 'hosts/vagrant', project_config)
+    generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_HOSTS+'/staging', 'hosts/staging', project_config)
+    generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_HOSTS+'/prod', 'hosts/prod', project_config)
+    generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/vagrant', 'group_vars/vagrant', project_config)
+    generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/staging', 'group_vars/staging', project_config)
+    generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/prod', 'group_vars/prod', project_config)
+
+def generate_file_if_it_doesnt_exist(target_file, source_file, project_config):
+    if not os.path.exists(target_file):
+        generate_template_file(source_file, project_config, target_file)
 
 #TODO: create verbose options
 if __name__ == "__main__":
