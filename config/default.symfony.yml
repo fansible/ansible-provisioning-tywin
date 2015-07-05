@@ -9,7 +9,6 @@ services:
   - MaximeThoonsen.php
   - composer
   - nginx
-  - mysql
 
 vagrant:
   ip: 10.0.0.10

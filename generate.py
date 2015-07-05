@@ -46,27 +46,47 @@ def main(argv):
 def project_type_finder():
     #Php projects
     if os.path.exists('composer.json'):
-        composer_json = read_yaml_file_and_return_dict('composer.json')
+        composer_json = read_file_and_return_dict('composer.json')
         if 'require' in composer_json:
             if 'symfony/symfony' in composer_json['require']:
-                print 'Symfony project detected...'
-                project_config = read_yaml_file_and_return_dict(DEFAULT_SYMFONY_YAML)
-                if 'name' in composer_json:
-                    project_config['project_name'] = composer_json['name']
 
-            return project_config
+                return symfony_config_loader(composer_json )
     #NodeJs projects
     if os.path.exists('package.json'):
         print 'NodeJs project detected...'
-        project_config = read_yaml_file_and_return_dict(DEFAULT_NODEJS_YAML)
-        package_json = read_yaml_file_and_return_dict('package.json')
+        project_config = read_file_and_return_dict(DEFAULT_NODEJS_YAML)
+        package_json = read_file_and_return_dict('package.json')
         if 'name' in package_json:
             project_config['project_name'] = package_json['name']
 
         return project_config
 
-    print 'Project type unknown yet. This program only know Symfony and Nodejs projects.'
+    print 'Project type unknown yet. This program only knows Symfony and Nodejs projects.'
     exit()
+
+def symfony_config_loader(composer_json ):
+    print 'Symfony project detected...'
+    project_config = read_file_and_return_dict(DEFAULT_SYMFONY_YAML)
+    if 'name' in composer_json:
+        project_config['project_name'] = composer_json['name']
+    parameters_yml = read_file_and_return_dict('app/config/parameters.yml')
+    if 'parameters' in parameters_yml:
+        if 'database_driver' in parameters_yml['parameters']:
+            project_config['database_name'] = parameters_yml['parameters']['database_name']
+            project_config['database_user'] = parameters_yml['parameters']['database_user']
+            project_config['database_password'] = parameters_yml['parameters']['database_password']
+
+            if parameters_yml['parameters']['database_driver'] == "pdo_mysql":
+                print "Database detected from parameters.yml: mysql"
+                project_config['services'].append('mysql')
+            if parameters_yml['parameters']['database_driver'] == "pdo_pgsql":
+                print "Database detected from parameters.yml: postgresql"
+                project_config['services'].append('postgresql')
+            #TODO: add mongo
+    else:
+        print "No database detected from parameters.yml"
+
+    return project_config
 
 #TODO: make it pretty
 #Create directories
@@ -89,12 +109,12 @@ def create_directories():
 # Build the tree of vars that will be used to generate template files
 def build_config(project_config):
     #TODO: create a serie of question to generate a custom fansible yaml file
-    config_fansible = read_yaml_file_and_return_dict(FANSIBLE_YAML)
+    config_fansible = read_file_and_return_dict(FANSIBLE_YAML)
     # Overide the default project config with the .fansible.yml config
     overide_dict(project_config, config_fansible)
 
     #TODO:change that for a more dynamic way (reading the roles directory)
-    known_services = read_yaml_file_and_return_dict(KNOWN_SERVICES)
+    known_services = read_file_and_return_dict(KNOWN_SERVICES)
 
     project_config["selected_services"] = []
     project_config["vars_files"] = []
@@ -151,7 +171,7 @@ def copy_roles_files(project_config):
             DIRECTORY_PROVISIONING_FANSIBLE_ROLES+'/'+service_name
         )
 
-def read_yaml_file_and_return_dict(name):
+def read_file_and_return_dict(name):
     if os.path.exists(name):
         fv = open(name)
         returned_dict = yaml.safe_load(fv)
@@ -177,13 +197,13 @@ def generate_basic_provisioning_files_if_they_dont_exist(project_config):
         )
     #generate vagrantfile if not exists
     if not os.path.exists('Vagrantfile'):
-        generate_template_file('Vagrant/Vagrantfile', project_config, 'Vagrantfile')
+        generate_template_file('Vagrantfile', project_config, 'Vagrantfile')
     #generate vagrant inventory if not exists
     if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS+'/vagrant'):
-        generate_template_file('Vagrant/vagrant', project_config, DIRECTORY_PROVISIONING_HOSTS+'/vagrant')
+        generate_template_file('hosts/vagrant', project_config, DIRECTORY_PROVISIONING_HOSTS+'/vagrant')
     #generate vagrant group_vars if not exists
     if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/vagrant'):
-        generate_template_file('Vagrant/group_vars', project_config, DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/vagrant')
+        generate_template_file('group_vars/vagrant', project_config, DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/vagrant')
 
 #TODO: create verbose options
 if __name__ == "__main__":
