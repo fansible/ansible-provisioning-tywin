@@ -5,10 +5,9 @@ hosts: all
 sudo: "true"
 
 services:
-  - apt
   - MaximeThoonsen.php
   - composer
-  - nginx
+  - nginx-symfony
 
 vagrant:
   ip: 10.0.0.10

@@ -2,7 +2,7 @@ composer: { role: kosssi.composer }
 apt: { role: kosssi.apt }
 kosssi.php: { role: kosssi.php }
 MaximeThoonsen.php: { role: MaximeThoonsen.php }
-nginx: { role: nginx-symfony }
+nginx-symfony: { role: nginx-symfony }
 apache: { role: kosssi.apache }
 mysql: { role: ANXS.mysql }
 postgresql: { role: ANXS.postgresql }

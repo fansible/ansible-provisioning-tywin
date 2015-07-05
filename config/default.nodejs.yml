@@ -5,9 +5,6 @@ hosts: all
 sudo: "true"
 
 services:
-  - apt
-  - nginx
-  - mysql
   - nodejs
 
 vagrant:

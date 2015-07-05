@@ -1,2 +1,2 @@
 [vagrant]
-{{ vagrant.ip }}
+{{ vagrant.ip }} ansible_ssh_user=vagrant
