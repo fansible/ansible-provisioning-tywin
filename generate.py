@@ -195,15 +195,19 @@ def generate_basic_provisioning_files_if_they_dont_exist(project_config):
             project_config,
             DIRECTORY_PROVISIONING_VARS+'/main.yml'
         )
-    #generate vagrantfile if not exists
+    #generate the vagrantfile if it doesn't exist
     if not os.path.exists('Vagrantfile'):
         generate_template_file('Vagrantfile', project_config, 'Vagrantfile')
-    #generate vagrant inventory if not exists
+    #generate the vagrant inventory file if doesn't exist
     if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS+'/vagrant'):
         generate_template_file('hosts/vagrant', project_config, DIRECTORY_PROVISIONING_HOSTS+'/vagrant')
-    #generate vagrant group_vars if not exists
+    #generate group_vars vars files if they don't exist
     if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/vagrant'):
         generate_template_file('group_vars/vagrant', project_config, DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/vagrant')
+    if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/staging'):
+        generate_template_file('group_vars/staging', project_config, DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/staging')
+    if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/prod'):
+        generate_template_file('group_vars/prod', project_config, DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/prod')
 
 #TODO: create verbose options
 if __name__ == "__main__":
