@@ -1,3 +1,10 @@
+#TODO: create a nginx role for node project
+#TODO: improve roles management
+#TODO: add mongodb role
+#TODO: add redis role
+#TODO: add elasticsearch role
+#TODO: read db conf for nodejs project
+
 import yaml, os, shutil, sys
 from jinja2 import Environment, FileSystemLoader
 
@@ -88,23 +95,21 @@ def symfony_config_loader(composer_json ):
 
     return project_config
 
-#TODO: make it pretty
 #Create directories
 def create_directories():
-    if not os.path.exists(DIRECTORY_DEVOPS):
-        os.makedirs(DIRECTORY_DEVOPS)
-    if not os.path.exists(DIRECTORY_PROVISIONING):
-        os.makedirs(DIRECTORY_PROVISIONING)
-    if not os.path.exists(DIRECTORY_PROVISIONING_ROLES):
-        os.makedirs(DIRECTORY_PROVISIONING_ROLES)
-    if not os.path.exists(DIRECTORY_PROVISIONING_FANSIBLE_ROLES):
-        os.makedirs(DIRECTORY_PROVISIONING_FANSIBLE_ROLES)
-    if not os.path.exists(DIRECTORY_PROVISIONING_VARS):
-        os.makedirs(DIRECTORY_PROVISIONING_VARS)
-    if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS):
-        os.makedirs(DIRECTORY_PROVISIONING_HOSTS)
-    if not os.path.exists(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS):
-        os.makedirs(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS)
+    directories = [
+        DIRECTORY_DEVOPS,
+        DIRECTORY_PROVISIONING,
+        DIRECTORY_PROVISIONING_ROLES,
+        DIRECTORY_PROVISIONING_FANSIBLE_ROLES,
+        DIRECTORY_PROVISIONING_VARS,
+        DIRECTORY_PROVISIONING_HOSTS,
+        DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS
+    ]
+
+    for directory in directories:
+        if not os.path.exists(directory):
+            os.makedirs(directory)
 
 # Build the tree of vars that will be used to generate template files
 def build_config(project_config):
