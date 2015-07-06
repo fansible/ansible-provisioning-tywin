@@ -3,3 +3,4 @@
 timezone: {{ timezone }}
 project_name: {{ project_name }}
 port: {{ port }}
+apt_install: []

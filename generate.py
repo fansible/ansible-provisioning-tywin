@@ -1,4 +1,3 @@
-#TODO: put back apt
 #TODO: create a nginx role for node project
 #TODO: improve roles management
 #TODO: add mongodb role
@@ -7,6 +6,7 @@
 #TODO: read db conf for nodejs project
 #TODO: Put a tywin picture in the readme
 #TODO: update doc for .fansible.yml
+#TODO: change the way main var files is managed
 
 import yaml, os, shutil, sys
 from jinja2 import Environment, FileSystemLoader
