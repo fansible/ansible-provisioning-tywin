@@ -1,0 +1,36 @@
+---
+dev_env: true
+
+{% for service in selected_services %}
+{% if service == 'mysql' %}
+mysql_databases:
+  - name: {% if database_name is defined %}{{ database_name }}{% else %}vagrant{% endif %}
+
+
+mysql_user:
+  - name: {% if database_user is defined %}{{ database_user }}{% else %}vagrant{% endif %}
+
+    password: {% if database_password is defined %}{{ database_password }}{% else %}vagrant{% endif %}
+{% endif %}
+{% if service == 'postgresql' %}
+# List of databases to be created
+postgresql_databases:
+  - name: {% if database_name is defined %}{{ database_name }}{% else %}vagrant{% endif %}
+
+
+# List of users to be created
+postgresql_users:
+  - name: {% if database_user is defined %}{{ database_user }}{% else %}vagrant{% endif %}
+
+    pass: {% if database_password is defined %}{{ database_password }}{% else %}vagrant{% endif %}
+
+
+postgresql_user_privileges:
+  - name: {% if database_user is defined %}{{ database_user }}{% else %}vagrant{% endif %}
+
+    db: {% if database_name is defined %}{{ database_name }}{% else %}vagrant{% endif %}
+
+    priv: "ALL"
+    role_attr_flags: "SUPERUSER"
+{% endif %}
+{% endfor %}

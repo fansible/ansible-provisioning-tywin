@@ -1,0 +1,20 @@
+project_name: test-fansible
+timezone: "Europe/Paris"
+port: 80
+hosts: all
+sudo: "true"
+apt_install: []
+
+services:
+  - apt
+  - MaximeThoonsen.php
+  - composer
+  - nginx-symfony
+
+vagrant:
+  ip: 10.0.0.10
+  box: "ubuntu/trusty64"
+  memory: 1024
+  cpus: 1
+  exec: 100
+  src: .
