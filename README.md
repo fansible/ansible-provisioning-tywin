@@ -10,6 +10,7 @@ You will need to install if you haven't done yet:
 * [Vagrant](http://www.vagrantup.com/downloads.html)
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 * nfs `sudo apt-get install nfs-kernel-server`
+* PyYAML and Jinja2 for python
 
 ## How to use it
 
