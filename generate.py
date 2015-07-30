@@ -8,7 +8,20 @@
 #TODO: update doc for .fansible.yml
 #TODO: change the way main var files is managed
 
-import yaml, os, shutil, sys
+import os, shutil, sys, imp
+
+def module_exists(module_name, helpfulLink):
+    try:
+        imp.find_module(module_name)
+    except ImportError:
+        print "You have to install "+module_name
+        print "Have a look at: "+helpfulLink
+        exit()
+
+#We check if the python dependencies have been installed
+module_exists('yaml',"http://stackoverflow.com/questions/14261614/how-do-i-install-the-yaml-package-for-python")
+import yaml
+module_exists('jinja2', "http://stackoverflow.com/questions/6726983/jinja-install-for-python")
 from jinja2 import Environment, FileSystemLoader
 
 #Directories
@@ -209,6 +222,6 @@ def generate_file_if_it_doesnt_exist(target_file, source_file, project_config):
     if not os.path.exists(target_file):
         generate_template_file(source_file, project_config, target_file)
 
-#TODO: create verbose options
+#TODO: create verbose options, check out yeoman
 if __name__ == "__main__":
     main(sys.argv[1:])
