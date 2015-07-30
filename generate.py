@@ -144,11 +144,12 @@ def build_config(project_config):
 
 # Overide values in a base dict with values from another dict
 def overide_dict(base, new):
-    for k, v in new.items():
-        if type(v) == dict:
-            overide_dict(base[k],v)
-        else:
-            base[k] = v
+    if hasattr(new, 'items'):
+        for k, v in new.items():
+            if type(v) == dict:
+                overide_dict(base[k],v)
+            else:
+                base[k] = v
 
 # Render the template with a specific context
 def render_template(template_filename, context):
