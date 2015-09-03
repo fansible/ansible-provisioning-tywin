@@ -8,3 +8,4 @@ mysql: { role: ANXS.mysql }
 postgresql: { role: ANXS.postgresql }
 nodejs: { role: Stouts.nodejs }
 xdebug: { role: MaximeThoonsen.php5-xdebug }
+mongodb: { role: Stouts.mongodb }
