@@ -1,7 +1,0 @@
----
-
-- hosts: all
-  sudo: true
-  roles:
-    - { role: common,                      tags: apt      }
-    - { role: ../../ansible-role-composer, tags: composer }

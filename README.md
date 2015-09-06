@@ -64,8 +64,12 @@ What you can do:
 3) Overide vars (in `devops/provisioning/vars`).
 
 ##Thanks
-Most of the value provided comes from the roles.
-We mainly found them in two places where really nice roles are being maintained:
-https://github.com/ANXS and https://github.com/Stouts
-So I feel gratitude towards to [pjan vandaele](https://twitter.com/pjan) and
-[Kirill Klenov](https://github.com/klen) for the amazing job they have done.
+A lot of roles have been created by other people.
+I mainly found them in three places where really nice roles are being maintained:
+https://github.com/ANXS, https://github.com/Stouts and https://github.com/geerlingguy
+So I feel gratitude towards to [pjan vandaele](https://twitter.com/pjan),
+[Kirill Klenov](https://github.com/klen) and [Jeff Geerling](http://jeffgeerling.com/)
+for the amazing job they have done.
+Special thanks to my friend [Simon](http://sconstans.fr/). 
+
+Maxime

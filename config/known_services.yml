@@ -1,10 +1,10 @@
-composer: { role: kosssi.composer }
-apt: { role: kosssi.apt }
+composer: { role: composer }
+apt: { role: ubuntu-apt }
 ubuntu-php: { role: ubuntu-php }
-nginx-symfony: { role: nginx-symfony }
-apache: { role: kosssi.apache }
+symfony-nginx: { role: ubuntu-symfony-nginx }
+apache: { role: ubuntu-apache }
 mysql: { role: ubuntu-mysql }
-postgresql: { role: ANXS.postgresql }
+postgresql: { role: ubuntu-postgresql }
 nodejs: { role: nodejs }
-xdebug: { role: MaximeThoonsen.php5-xdebug }
-mongodb: { role: Stouts.mongodb }
+xdebug: { role: ubuntu-xdebug }
+mongodb: { role: ubuntu-mongodb }

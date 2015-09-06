@@ -1,5 +1,0 @@
----
-
-- include: mongodb.yml
-  when: mongodb_enabled
-  tags: [mongodb]

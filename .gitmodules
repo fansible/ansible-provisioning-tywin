@@ -1,3 +1,24 @@
 [submodule "roles/ubuntu-mysql"]
 	path = roles/ubuntu-mysql
 	url = git@github.com:ANXS/mysql.git
+[submodule "roles/nodejs"]
+	path = roles/nodejs
+	url = git@github.com:Stouts/Stouts.nodejs.git
+[submodule "roles/ubuntu-mongodb"]
+	path = roles/ubuntu-mongodb
+	url = git@github.com:Stouts/Stouts.mongodb.git
+[submodule "roles/ubuntu-xdebug"]
+	path = roles/ubuntu-xdebug
+	url = git@github.com:MaximeThoonsen/ansible-role-php-xdebug.git
+[submodule "roles/composer"]
+	path = roles/composer
+	url = git@github.com:kosssi/ansible-role-composer.git
+[submodule "roles/ubuntu-apt"]
+	path = roles/ubuntu-apt
+	url = git@github.com:kosssi/ansible-role-apt.git
+[submodule "roles/ubuntu-apache"]
+	path = roles/ubuntu-apache
+	url = git@github.com:kosssi/ansible-role-apache.git
+[submodule "roles/ubuntu-postgresql"]
+	path = roles/ubuntu-postgresql
+	url = git@github.com:ANXS/postgresql.git

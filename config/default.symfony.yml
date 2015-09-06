@@ -9,7 +9,7 @@ services:
   - apt
   - ubuntu-php
   - composer
-  - nginx-symfony
+  - symfony-nginx
 
 vagrant:
   ip: 10.0.0.10

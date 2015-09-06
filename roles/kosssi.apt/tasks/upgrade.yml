@@ -1,7 +1,0 @@
----
-
-- name: Upgrade all packages.
-  apt:
-    upgrade={{ apt_upgrade_type }}
-    update_cache=yes
-  when: apt_upgrade
