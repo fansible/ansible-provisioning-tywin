@@ -16,12 +16,12 @@ You will need to install if you haven't done yet:
 
 1) Installation
 
-    composer require fansible/tywin *@dev --dev
+    git clone git@github.com:fansible/tywin.git ~/tywin --recursive 
 
 2) Generate the default conf
 You can generate the default conf by running in the root directory of your project:
 
-    python vendor/fansible/tywin/generate.py
+    python ~/tywin/generate.py
 
 You can now found your provisioning in the `devops` directory
 
@@ -66,8 +66,8 @@ What you can do:
 ##Thanks
 A lot of roles have been created by other people.
 I mainly found them in three places where really nice roles are being maintained:
-https://github.com/ANXS, https://github.com/Stouts and https://github.com/geerlingguy
-So I feel gratitude towards to [pjan vandaele](https://twitter.com/pjan),
+https://github.com/ANXS, https://github.com/Stouts and https://github.com/geerlingguy.
+Thanks a lot to [pjan vandaele](https://twitter.com/pjan),
 [Kirill Klenov](https://github.com/klen) and [Jeff Geerling](http://jeffgeerling.com/)
 for the amazing job they have done.
 Special thanks to my friend [Simon](http://sconstans.fr/). 
