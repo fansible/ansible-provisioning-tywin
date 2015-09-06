@@ -15,7 +15,7 @@ Only tested on ubuntu for now.
 ```yaml
 nodejs_enabled: yes                       # The role is enabled
 
-nodejs_repository: ppa:chris-lea/node.js  # NodeJS PPA
+nodejs_repository: ppa:chris-lea/node.js  # NodeJS PPA or False for skip
 nodejs_npm_modules: []                    # List modules which will be installed
 ```
 

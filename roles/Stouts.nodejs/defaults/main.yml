@@ -1,6 +1,0 @@
----
-
-nodejs_enabled: yes                       # The role is enabled
-
-nodejs_repository: ppa:chris-lea/node.js  # NodeJS PPA (Set empty for skip)
-nodejs_npm_modules: []                    # List modules which will be installed
