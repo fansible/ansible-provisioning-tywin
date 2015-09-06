@@ -1,10 +1,10 @@
 composer: { role: kosssi.composer }
 apt: { role: kosssi.apt }
 kosssi.php: { role: kosssi.php }
-MaximeThoonsen.php: { role: MaximeThoonsen.php }
+ubuntu-php: { role: MaximeThoonsen.php }
 nginx-symfony: { role: nginx-symfony }
 apache: { role: kosssi.apache }
-mysql: { role: ANXS.mysql }
+mysql: { role: ubuntu-mysql }
 postgresql: { role: ANXS.postgresql }
 nodejs: { role: Stouts.nodejs }
 xdebug: { role: MaximeThoonsen.php5-xdebug }

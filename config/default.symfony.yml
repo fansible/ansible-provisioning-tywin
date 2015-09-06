@@ -7,7 +7,7 @@ apt_install: []
 
 services:
   - apt
-  - MaximeThoonsen.php
+  - ubuntu-php
   - composer
   - nginx-symfony
 

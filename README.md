@@ -62,3 +62,10 @@ What you can do:
 2) Modify the playbook to call your roles.
 
 3) Overide vars (in `devops/provisioning/vars`).
+
+##Thanks
+Most of the value provided comes from the roles.
+We mainly found them in two places where really nice roles are being maintained:
+https://github.com/ANXS and https://github.com/Stouts
+So I feel gratitude towards to [pjan vandaele](https://twitter.com/pjan) and
+[Kirill Klenov](https://github.com/klen) for the amazing job they have done.

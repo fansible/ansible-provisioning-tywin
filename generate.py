@@ -1,6 +1,5 @@
 #TODO: create a nginx role for node project
 #TODO: improve roles management
-#TODO: add mongodb role
 #TODO: add redis role
 #TODO: add elasticsearch role
 #TODO: read db conf for nodejs project
