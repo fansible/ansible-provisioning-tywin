@@ -1,8 +1,5 @@
-#TODO: create a nginx role for node project
-#TODO: improve roles management
 #TODO: add redis role
 #TODO: add elasticsearch role
-#TODO: read db conf for nodejs project
 #TODO: Put a tywin picture in the readme
 #TODO: update doc for .fansible.yml
 #TODO: change the way main var files is managed

@@ -1,0 +1,24 @@
+---
+- name: install
+  apt: name=nginx state=latest update_cache=true cache_valid_time=3600
+  tags:
+  - packages
+
+- name: remove default site conf
+  file: path=/etc/nginx/conf.d/default state=absent
+  notify: reload-nginx
+
+- name: remove default site conf
+  file: path=/etc/nginx/sites-available/default state=absent
+  notify: reload-nginx
+
+- name: add server main listener
+  template: src=etc/nginx/conf.d/conf dest=/etc/nginx/conf.d/main.conf
+  notify: restart-nginx
+
+- name: nginx - update mime types
+  copy: src=etc/nginx/mime.types dest=/etc/nginx/mime.types owner=root group=root mode=0644
+  notify: restart-nginx
+
+- name: enable service
+  service: name=nginx enabled=yes state=started

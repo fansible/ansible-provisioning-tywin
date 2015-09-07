@@ -27,10 +27,6 @@ server {
         fastcgi_pass   unix:/var/run/php5-fpm.sock;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include fastcgi_params;
-
-        # Added to avoid 502 Bad Gateway errors
-        fastcgi_buffer_size 512k;
-        fastcgi_buffers 16 512k;
     }
 
     location ~* \.(css|txt|xml|js|gif|jpe?g|png|ico)$ {

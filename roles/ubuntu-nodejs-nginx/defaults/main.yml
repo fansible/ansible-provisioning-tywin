@@ -1,0 +1,6 @@
+---
+domain_name: "_" 
+node_route: "/api"
+node_port: 3333
+project_name: "myapp"
+index_default: "index.html"

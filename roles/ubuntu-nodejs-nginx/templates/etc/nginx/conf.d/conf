@@ -1,0 +1,22 @@
+server {
+    listen      80;
+    server_name  {{ domain_name }};
+
+    root /var/www/{{ project_name }}/current/www;
+    index {{ index_default }};
+
+    gzip            on;
+    gzip_min_length 1000;
+    gzip_comp_level 9;
+    gzip_proxied    any;
+    gzip_types      application/javascript application/x-javascript application/json text/css;
+
+    location {{ node_route }} {
+        proxy_pass http://127.0.0.1:{{ node_port }};
+        rewrite {{ node_route }}/(.*) /$1 break;
+    }
+
+    location ~* \.(css|txt|xml|js|gif|jpe?g|png|ico)$ {
+        expires 1y;
+    }
+}
