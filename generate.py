@@ -1,9 +1,3 @@
-#TODO: add redis role
-#TODO: add elasticsearch role
-#TODO: Put a tywin picture in the readme
-#TODO: update doc for .fansible.yml
-#TODO: change the way main var files is managed
-
 import os, shutil, sys, imp
 
 def module_exists(module_name, helpfulLink):
