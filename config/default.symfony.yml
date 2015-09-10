@@ -6,10 +6,10 @@ sudo: "true"
 apt_install: []
 
 services:
-  - apt
+  - ubuntu-apt
   - ubuntu-php
   - composer
-  - symfony-nginx
+  - ubuntu-symfony-nginx
 
 vagrant:
   ip: 10.0.0.10

@@ -1,11 +1,12 @@
-composer: { role: composer }
-apt: { role: ubuntu-apt }
-ubuntu-php: { role: ubuntu-php }
-symfony-nginx: { role: ubuntu-symfony-nginx }
-nodejs-nginx: { role: ubuntu-nodejs-nginx }
-apache: { role: ubuntu-apache }
-mysql: { role: ubuntu-mysql }
-postgresql: { role: ubuntu-postgresql }
-nodejs: { role: nodejs }
-xdebug: { role: ubuntu-xdebug }
-mongodb: { role: ubuntu-mongodb }
+---
+- composer
+- ubuntu-apt
+- ubuntu-php
+- ubuntu-symfony-nginx
+- ubuntu-nodejs-nginx
+- ubuntu-apache
+- ubuntu-mysql
+- ubuntu-postgresql
+- nodejs
+- ubuntu-xdebug
+- ubuntu-mongodb

@@ -73,7 +73,7 @@ def project_type_finder():
             project_config['project_name'] = package_json['name']
         if package_json['dependencies'] and package_json['dependencies']['mongodb']:
             print "Database detected from package.json: mongodb"
-            project_config['services'].append('mongodb')
+            project_config['services'].append('ubuntu-mongodb')
 
         return project_config
 
@@ -94,10 +94,10 @@ def symfony_config_loader(composer_json ):
 
             if parameters_yml['parameters']['database_driver'] == "pdo_mysql":
                 print "Database detected from parameters.yml: mysql"
-                project_config['services'].append('mysql')
+                project_config['services'].append('ubuntu-mysql')
             if parameters_yml['parameters']['database_driver'] == "pdo_pgsql":
                 print "Database detected from parameters.yml: postgresql"
-                project_config['services'].append('postgresql')
+                project_config['services'].append('ubuntu-postgresql')
             #TODO: add mongo
     else:
         print "No database detected from parameters.yml"
@@ -122,27 +122,24 @@ def create_directories():
 
 # Build the tree of vars that will be used to generate template files
 def build_config(project_config):
-    #TODO: create a serie of question to generate a custom fansible yaml file
+    #TODO?: create a serie of question to generate a custom fansible yaml file, yeoman?
     config_fansible = read_file_and_return_dict(FANSIBLE_YAML)
     # Overide the default project config with the .fansible.yml config
     overide_dict(project_config, config_fansible)
 
     #TODO:change that for a more dynamic way (reading the roles directory)
-    known_services = read_file_and_return_dict(KNOWN_SERVICES)
-
+    project_config["known_services"] = read_file_and_return_dict(KNOWN_SERVICES)
     project_config["selected_services"] = []
     project_config["vars_files"] = []
 
-    project_config["known_services"] = known_services
     # Calculate selected known_services
     for key, service in enumerate(project_config['services']):
         if service in project_config["known_services"]:
             project_config['selected_services'].append(service)
             print "The service " + service + " has been added to the provisioning"
-            service_name = project_config["known_services"][service]['role']
             # We build the list of vars files that will have to be copied
-            if os.path.exists(DIRECTORY_TYWIN_TEMPLATES_ANSIBLE_VARS+'/'+service_name+'.yml'):
-                project_config["vars_files"].append(service_name)
+            if os.path.exists(DIRECTORY_TYWIN_TEMPLATES_ANSIBLE_VARS+'/'+service+'.yml'):
+                project_config["vars_files"].append(service)
         else:
             print "Sorry the service "+service+" is unknow by Fansible/Tywin yet"
 
@@ -169,21 +166,19 @@ def generate_template_file(template_filename, context, dest):
 
 def copy_roles_files(project_config):
     for key, service in enumerate(project_config['selected_services']):
-        service_name = project_config['known_services'][service]['role']
-
-        if service_name in project_config['vars_files']:
+        if service in project_config['vars_files']:
             generate_template_file(
-                '/Ansible/Vars/'+service_name+'.yml',
+                '/Ansible/Vars/'+service+'.yml',
                 project_config,
-                DIRECTORY_PROVISIONING_VARS+'/'+service_name+'.yml'
+                DIRECTORY_PROVISIONING_VARS+'/'+service+'.yml'
             )
 
         #We override if the role already exists
-        if os.path.exists(DIRECTORY_PROVISIONING_FANSIBLE_ROLES+'/'+service_name):
-            shutil.rmtree(DIRECTORY_PROVISIONING_FANSIBLE_ROLES+'/'+service_name)
+        if os.path.exists(DIRECTORY_PROVISIONING_FANSIBLE_ROLES+'/'+service):
+            shutil.rmtree(DIRECTORY_PROVISIONING_FANSIBLE_ROLES+'/'+service)
         shutil.copytree(
-            DIRECTORY_TYWIN_ROLES+'/'+service_name,
-            DIRECTORY_PROVISIONING_FANSIBLE_ROLES+'/'+service_name
+            DIRECTORY_TYWIN_ROLES+'/'+service,
+            DIRECTORY_PROVISIONING_FANSIBLE_ROLES+'/'+service
         )
 
 def read_file_and_return_dict(name):
@@ -208,8 +203,8 @@ def generate_basic_provisioning_files_if_they_dont_exist(project_config):
     generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_HOSTS+'/staging', 'hosts/staging', project_config)
     generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_HOSTS+'/prod', 'hosts/prod', project_config)
     generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/vagrant', 'group_vars/vagrant', project_config)
-    generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/staging', 'group_vars/staging', project_config)
-    generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/prod', 'group_vars/prod', project_config)
+    generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/staging', 'group_vars/prod_staging', project_config)
+    generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/prod', 'group_vars/prod_staging', project_config)
 
 def generate_file_if_it_doesnt_exist(target_file, source_file, project_config):
     if not os.path.exists(target_file):
