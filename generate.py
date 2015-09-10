@@ -127,8 +127,7 @@ def build_config(project_config):
     # Overide the default project config with the .fansible.yml config
     overide_dict(project_config, config_fansible)
 
-    #TODO:change that for a more dynamic way (reading the roles directory)
-    project_config["known_services"] = read_file_and_return_dict(KNOWN_SERVICES)
+    project_config["known_services"] = os.listdir(DIRECTORY_TYWIN_ROLES)
     project_config["selected_services"] = []
     project_config["vars_files"] = []
 
