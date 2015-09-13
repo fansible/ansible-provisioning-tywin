@@ -1,6 +1,8 @@
 # Fansible Tywin
 Create easily your Ansible provisioning
 
+- Tested on Ansible 1.8.4 or higher.
+
 ##Requirements
 This have been tested with the Ubuntu OS. It should work with many other various Debian distribution. Feel free to share your advice for the other OS..
 This is what you will need to install if you haven't done yet:
