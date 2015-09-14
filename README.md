@@ -3,10 +3,9 @@ Create easily your Ansible provisioning
 
 ##Requirements
 This have been tested with the Ubuntu OS. It should work with many other various Debian distribution. Feel free to share your advice for the other OS..
-You will need to install if you haven't done yet:
+This is what you will need to install if you haven't done yet:
 
-* [Ansible](http://docs.ansible.com/intro_installation.html)
-* [Composer](https://getcomposer.org/download/)
+* [Ansible](http://docs.ansible.com/intro_installation.html) (1.8.4 or higher)
 * [Vagrant](http://www.vagrantup.com/downloads.html)
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 * nfs `sudo apt-get install nfs-kernel-server`
