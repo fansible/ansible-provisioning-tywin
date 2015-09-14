@@ -71,9 +71,10 @@ def project_type_finder():
         package_json = read_file_and_return_dict('package.json')
         if 'name' in package_json:
             project_config['project_name'] = package_json['name']
-        if package_json['dependencies'] and package_json['dependencies']['mongodb']:
-            print "Database detected from package.json: mongodb"
-            project_config['services'].append('mongodb')
+        if 'dependencies' in package_json:
+            if 'mongodb' in package_json['dependencies']:
+                print "Database detected from package.json: mongodb"
+                project_config['services'].append('mongodb')
 
         return project_config
 

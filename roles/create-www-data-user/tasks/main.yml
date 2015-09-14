@@ -1,0 +1,13 @@
+---
+
+- name: update www-data shell
+  user: name=www-data shell=/bin/bash
+
+- name: set correct permissions
+  file: path=/var/www owner=www-data group=www-data mode=0755 state=directory
+
+- name: set correct permissions for ssh dir
+  file: path=/var/www/.ssh owner=www-data group=www-data mode=0700 state=directory
+
+- name: set correct permissions for tmp dir
+  file: path=/tmp mode=0777 state=directory

@@ -9,3 +9,4 @@ postgresql: { role: ubuntu-postgresql }
 nodejs: { role: nodejs }
 xdebug: { role: ubuntu-xdebug }
 mongodb: { role: ubuntu-mongodb }
+create-www-data-user: { role: create-www-data-user }
