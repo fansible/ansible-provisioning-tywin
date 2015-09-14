@@ -1,6 +1,6 @@
 ---
 
-- name: Provision {{ project_name }}
+- name: Provisioning {{ project_name }}
   hosts: {{ hosts }}
   sudo: {{ sudo }}
   vars_files:
@@ -11,7 +11,7 @@
 
   roles:
 {% for service in selected_services %}
-    - { role: {{ known_services[service].role }}, tags: {{ service }} }
+    - {{ service }}
 {% endfor %}
 {% if 'php' in selected_services %}
 

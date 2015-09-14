@@ -1,7 +1,11 @@
 ---
-dev_env: true
 
 {% for service in selected_services %}
+{% if service == 'ubuntu-symfony-nginx' %}
+dev_env: true
+{% endif %}
+
+
 {% if service == 'mysql' %}
 mysql_databases:
   - name: {% if database_name is defined %}{{ database_name }}{% else %}vagrant{% endif %}
