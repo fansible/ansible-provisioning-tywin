@@ -72,9 +72,13 @@ def project_type_finder():
         if 'name' in package_json:
             project_config['project_name'] = package_json['name']
         if 'dependencies' in package_json:
-            if 'mongodb' in package_json['dependencies']:
+            deps = package_json['dependencies']
+            if 'mongodb' in deps or 'loopback-connector-mongodb' in deps:
                 print "Database detected from package.json: mongodb"
                 project_config['services'].append('ubuntu-mongodb')
+            if 'pg' in deps or 'loopback-connector-postgresql' in deps:
+                print "Database detected from package.json: postgresql"
+                project_config['services'].append('ubuntu-postgresql')
 
         return project_config
 
