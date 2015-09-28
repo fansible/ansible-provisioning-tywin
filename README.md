@@ -22,7 +22,7 @@ You can generate the default conf by running in the root directory of your proje
 
     python ~/tywin/generate.py
 
-You can now found your provisioning in the `devops` directory
+You can now find your provisioning in the `devops` directory
 
 3) Provision the VM
 You can create the VM with `vagrant up`.
