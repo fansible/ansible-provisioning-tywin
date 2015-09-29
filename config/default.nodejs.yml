@@ -5,7 +5,7 @@ hosts: all
 sudo: "true"
 
 services:
-  - apt
+  - ubuntu-apt
   - create-www-data-user
   - nodejs
   - ubuntu-nodejs-nginx
