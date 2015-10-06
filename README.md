@@ -1,6 +1,7 @@
 # Fansible Tywin
 Create easily your Ansible provisioning.
-This project is still under development and **not stable yet**. 
+
+This project is still under development and **not stable yet**, all issues and questions are **very welcomed**.
 
 ##Requirements
 This have been tested with the Ubuntu OS. It should work with many other various Debian distribution. Feel free to share your advice for the other OS..
