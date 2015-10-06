@@ -29,31 +29,12 @@ You can now find your provisioning in the `devops` directory
 You can create the VM with `vagrant up`.
 
 4) Provision it
-Provision it with `nsible-playbook -i devops/provisioning/hosts/vagrant devops/provisioning/playbook.yml`.
+Provision it with `ansible-playbook -i devops/provisioning/hosts/vagrant devops/provisioning/playbook.yml`.
 
 Your VM is now ready ! =)
 
 ### Database configuration
 Change the value of the database configuration in `devops/provisioning/hosts/group_vars/vagrant`
-
-### Add some conf
-Create a `.fansible.yml` file in the root directory before you generate anything.
-
-Example:
-
-    project_name: fansible-devops
-    timezone: "Europe/Paris"
-    port: 80
-    hosts: all
-    sudo: "true"
-
-    vagrant:
-      ip: 10.0.0.10
-      box: "ubuntu/trusty64"
-      memory: 1024
-      cpus: 1
-      exec: 100
-      src: .
 
 ### Customize your provisioning
 What you can do:
