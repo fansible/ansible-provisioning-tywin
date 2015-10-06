@@ -1,5 +1,6 @@
 # Fansible Tywin
-Create easily your Ansible provisioning
+Create easily your Ansible provisioning.
+This project is still under development and **not stable yet**. 
 
 ##Requirements
 This have been tested with the Ubuntu OS. It should work with many other various Debian distribution. Feel free to share your advice for the other OS..
@@ -24,10 +25,11 @@ You can generate the default conf by running in the root directory of your proje
 
 You can now find your provisioning in the `devops` directory
 
-3) Provision the VM
+3) Create the VM
 You can create the VM with `vagrant up`.
 
-Provision it with `vagrant provision`.
+4) Provision it
+Provision it with `nsible-playbook -i devops/provisioning/hosts/vagrant devops/provisioning/playbook.yml`.
 
 Your VM is now ready ! =)
 
