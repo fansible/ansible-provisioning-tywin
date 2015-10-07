@@ -1,5 +1,5 @@
 # Fansible Tywin
-Create easily your Ansible provisioning.
+Create easily your Ansible provisioning for Node.js and Symfony projects.
 
 This project is still under development and **not stable yet**, all issues and questions are **very welcomed**.
 
