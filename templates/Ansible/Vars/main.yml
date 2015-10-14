@@ -5,3 +5,8 @@ project_name: {{ project_name }}
 port: {{ port }}
 apt_install:
   - git
+
+# Needed for the apt role to work with ansible 2.0
+apt_install_repositories: []
+apt_remove_repositories: []
+apt_remove: []
