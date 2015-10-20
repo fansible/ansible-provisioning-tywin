@@ -2,11 +2,12 @@
 Create easily your Ansible provisioning for Node.js and Symfony projects.
 
 This project is still under development, all issues and questions are **very welcomed**.
- 
+
 ##Requirements
 This have been tested with the Ubuntu OS. It should work with many other various Debian distribution. Feel free to share your advice for the other OS..
 This is what you will need to install if you haven't done yet:
 
+* **Python 2.7**
 * [Ansible](http://docs.ansible.com/intro_installation.html) (1.8.4 or higher)
 * [Vagrant](http://www.vagrantup.com/downloads.html)
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads).

@@ -1,17 +1,21 @@
 import os, shutil, sys, imp
 
-def module_exists(module_name, helpfulLink):
+if sys.version_info.major != 2:
+    print "This program only works with python 2.6 or 2.7 (like Ansible)"
+    exit()
+
+def module_exists(module_name, comment):
     try:
         imp.find_module(module_name)
     except ImportError:
         print "You have to install "+module_name
-        print "Have a look at: "+helpfulLink
+        print comment
         exit()
 
 #We check if the python dependencies have been installed
-module_exists('yaml',"http://stackoverflow.com/questions/14261614/how-do-i-install-the-yaml-package-for-python")
+module_exists('yaml',"Have a look at: http://stackoverflow.com/questions/14261614/how-do-i-install-the-yaml-package-for-python")
 import yaml
-module_exists('jinja2', "http://stackoverflow.com/questions/6726983/jinja-install-for-python")
+module_exists('jinja2', "Have a look at: http://stackoverflow.com/questions/6726983/jinja-install-for-python")
 from jinja2 import Environment, FileSystemLoader
 
 #Directories
