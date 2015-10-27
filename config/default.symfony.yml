@@ -11,6 +11,7 @@ services:
   - ubuntu-php
   - composer
   - ubuntu-symfony-nginx
+  - ubuntu-xdebug
 
 vagrant:
   ip: 10.0.0.10

@@ -11,14 +11,16 @@
 
   roles:
 {% for service in selected_services %}
+{% if service != 'ubuntu-xdebug' %}
     - {{ service }}
+{% endif %}
 {% endfor %}
-{% if 'php' in selected_services %}
 
+{% if 'ubuntu-xdebug' in selected_services %}
 - name: Vagrant provisioning
   hosts: vagrant
   sudo: yes
   gather_facts: true
   roles:
-   - MaximeThoonsen.php5-xdebug
+   - ubuntu-xdebug
 {% endif %}
