@@ -25,7 +25,7 @@ postgresql_users:
 
 postgresql_user_privileges:
   - name: CHANGE_IT_prod-staging_user_db
-    db: name: CHANGE_IT_prod-staging_db_name
+    db: CHANGE_IT_prod-staging_db_name
     priv: "ALL"
     role_attr_flags: "SUPERUSER"
 {% endif %}
