@@ -3,6 +3,8 @@ Create easily your Ansible provisioning for Node.js and Symfony projects.
 
 This project is still under development, all issues and questions are **very welcomed**.
 
+It has already been used to create new projects that are currently in production =).
+
 ##Requirements
 This have been tested with the Ubuntu OS. It should work with many other various Debian distribution. Feel free to share your advice for the other OS..
 This is what you will need to install if you haven't done yet:
@@ -21,6 +23,7 @@ This is what you will need to install if you haven't done yet:
     git clone git@github.com:fansible/tywin.git ~/tywin --recursive
 
 2) Generate the default conf
+
 You can generate the default conf by running in the root directory of your project:
 
     python ~/tywin/generate.py
@@ -30,7 +33,9 @@ You can now find your provisioning in the `devops` directory
 3) Create the VM
 You can create the VM with `vagrant up`.
 
-4) Provision it
+4) Put your ssh key in the vagrant: `ssh-copy-id vagrant@10.0.0.10`
+
+5) Provision it
 Provision it with `ansible-playbook -i devops/provisioning/hosts/vagrant devops/provisioning/playbook.yml`.
 
 Your VM is now ready ! =)
@@ -38,7 +43,7 @@ Your VM is now ready ! =)
 ### Database configuration
 Change the value of the database configuration in `devops/provisioning/hosts/group_vars/vagrant`
 
-### Customize your provisioning
+### Go further: customize your provisioning
 What you can do:
 
 1) Add your roles in the `devops/provisioning/roles` directory.
