@@ -10,3 +10,9 @@ apt_install:
 apt_install_repositories: []
 apt_remove_repositories: []
 apt_remove: []
+
+{% for service in selected_services %}
+{% if service == 'ubuntu-symfony-nginx' %}
+composer_update: false
+{% endif %}
+{% endfor %}
