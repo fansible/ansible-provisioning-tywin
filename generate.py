@@ -50,6 +50,8 @@ def main(argv):
     project_config = project_type_finder()
     #Build config reading .fansible.yml file
     build_config(project_config)
+    #Remove slashes from the project name
+    project_config['project_name'] = project_config['project_name'].replace('/','-')
     #Create all the needed directories
     create_directories()
     #Copy all the roles files
