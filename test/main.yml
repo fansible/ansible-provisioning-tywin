@@ -1,0 +1,32 @@
+---
+#PUT here your main variable
+timezone: Europe/Paris
+project_name: y
+port: 80
+apt_install:
+  - git
+
+# Needed for the apt role to work with ansible 2.0
+apt_install_repositories: []
+apt_remove_repositories: []
+apt_remove: []
+
+mysql_databases:
+  - name: vagrant
+
+mysql_user:
+  - name: vagrant
+    password: vagrant# List of databases to be created
+postgresql_databases:
+  - name: vagrant
+
+# List of users to be created
+postgresql_users:
+  - name: vagrant
+    pass: vagrant
+
+postgresql_user_privileges:
+  - name: vagrant
+    db: vagrant
+    priv: "ALL"
+    role_attr_flags: "SUPERUSER"
