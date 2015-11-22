@@ -3,6 +3,7 @@ timezone: "Europe/Paris"
 port: 80
 hosts: all
 sudo: "true"
+apt_install: []
 
 roles:
   - ubuntu-apt
