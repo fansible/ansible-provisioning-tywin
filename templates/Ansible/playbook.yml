@@ -5,18 +5,18 @@
   sudo: {{ sudo }}
   vars_files:
     - vars/main.yml
-{% for service in vars_files %}
-    - vars/{{ service }}.yml
+{% for role in vars_files %}
+    - vars/{{ role }}.yml
 {% endfor %}
 
   roles:
-{% for service in selected_services %}
-{% if service != 'ubuntu-xdebug' %}
-    - {{ service }}
+{% for role in selected_roles %}
+{% if role != 'ubuntu-xdebug' %}
+    - {{ role }}
 {% endif %}
 {% endfor %}
 
-{% if 'ubuntu-xdebug' in selected_services %}
+{% if 'ubuntu-xdebug' in selected_roles %}
 - name: Vagrant provisioning
   hosts: vagrant
   sudo: yes

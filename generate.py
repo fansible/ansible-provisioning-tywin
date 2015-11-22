@@ -37,7 +37,6 @@ DIRECTORY_TYWIN_TEMPLATES_ANSIBLE_VARS = DIRECTORY_TYWIN_TEMPLATES_ANSIBLE+'/Var
 FANSIBLE_YAML = '.fansible.yml'
 DEFAULT_SYMFONY_YAML = DIRECTORY_TYWIN_CONFIG+'/default.symfony.yml'
 DEFAULT_NODEJS_YAML = DIRECTORY_TYWIN_CONFIG+'/default.nodejs.yml'
-KNOWN_SERVICES = DIRECTORY_TYWIN_CONFIG+'/known_services.yml'
 
 #Configs
 TEMPLATE_ENVIRONMENT = Environment(
@@ -91,10 +90,10 @@ def project_type_finder():
             deps = package_json['dependencies']
             if 'mongodb' in deps or 'loopback-connector-mongodb' in deps:
                 print "Database detected from package.json: mongodb"
-                project_config['services'].append('ubuntu-mongodb')
+                project_config['roles'].append('ubuntu-mongodb')
             if 'pg' in deps or 'loopback-connector-postgresql' in deps:
                 print "Database detected from package.json: postgresql"
-                project_config['services'].append('ubuntu-postgresql')
+                project_config['roles'].append('ubuntu-postgresql')
 
         return project_config
 
@@ -115,10 +114,10 @@ def symfony_config_loader(composer_json):
 
             if parameters_yml['parameters']['database_driver'] == "pdo_mysql":
                 print "Database detected from parameters.yml: mysql"
-                project_config['services'].append('ubuntu-mysql')
+                project_config['roles'].append('ubuntu-mysql')
             if parameters_yml['parameters']['database_driver'] == "pdo_pgsql":
                 print "Database detected from parameters.yml: postgresql"
-                project_config['services'].append('ubuntu-postgresql')
+                project_config['roles'].append('ubuntu-postgresql')
             #TODO: add mongo
     else:
         print "No database detected from parameters.yml"
@@ -148,20 +147,20 @@ def build_config(project_config):
     # Overide the default project config with the .fansible.yml config
     overide_dict(project_config, config_fansible)
 
-    project_config["known_services"] = os.listdir(DIRECTORY_TYWIN_ROLES)
-    project_config["selected_services"] = []
+    project_config["known_roles"] = os.listdir(DIRECTORY_TYWIN_ROLES)
+    project_config["selected_roles"] = []
     project_config["vars_files"] = []
 
-    # Calculate selected known_services
-    for key, service in enumerate(project_config['services']):
-        if service in project_config["known_services"]:
-            project_config['selected_services'].append(service)
-            print "The service " + service + " has been added to the provisioning"
+    # Calculate selected known_roles
+    for key, role in enumerate(project_config['roles']):
+        if role in project_config["known_roles"]:
+            project_config['selected_roles'].append(role)
+            print "The role " + role + " has been added to the provisioning"
             # We build the list of vars files that will have to be copied
-            if os.path.exists(DIRECTORY_TYWIN_TEMPLATES_ANSIBLE_VARS+'/'+service+'.yml'):
-                project_config["vars_files"].append(service)
+            if os.path.exists(DIRECTORY_TYWIN_TEMPLATES_ANSIBLE_VARS+'/'+role+'.yml'):
+                project_config["vars_files"].append(role)
         else:
-            print "Sorry the service "+service+" is unknow by Fansible/Tywin yet"
+            print "Sorry the role "+role+" is unknow by Fansible/Tywin yet"
 
     return project_config
 
@@ -185,20 +184,20 @@ def generate_template_file(template_filename, context, dest):
         ft.write(file_rendered)
 
 def copy_roles_files(project_config):
-    for key, service in enumerate(project_config['selected_services']):
-        if service in project_config['vars_files']:
+    for key, role in enumerate(project_config['selected_roles']):
+        if role in project_config['vars_files']:
             generate_template_file(
-                '/Ansible/Vars/'+service+'.yml',
+                '/Ansible/Vars/'+role+'.yml',
                 project_config,
-                DIRECTORY_PROVISIONING_VARS+'/'+service+'.yml'
+                DIRECTORY_PROVISIONING_VARS+'/'+role+'.yml'
             )
 
         #We override if the role already exists
-        if os.path.exists(DIRECTORY_PROVISIONING_FANSIBLE_ROLES+'/'+service):
-            shutil.rmtree(DIRECTORY_PROVISIONING_FANSIBLE_ROLES+'/'+service)
+        if os.path.exists(DIRECTORY_PROVISIONING_FANSIBLE_ROLES+'/'+role):
+            shutil.rmtree(DIRECTORY_PROVISIONING_FANSIBLE_ROLES+'/'+role)
         shutil.copytree(
-            DIRECTORY_TYWIN_ROLES+'/'+service,
-            DIRECTORY_PROVISIONING_FANSIBLE_ROLES+'/'+service
+            DIRECTORY_TYWIN_ROLES+'/'+role,
+            DIRECTORY_PROVISIONING_FANSIBLE_ROLES+'/'+role
         )
 
 def read_file_and_return_dict(name):

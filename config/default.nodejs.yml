@@ -4,7 +4,7 @@ port: 80
 hosts: all
 sudo: "true"
 
-services:
+roles:
   - ubuntu-apt
   - create-www-data-user
   - nodejs

@@ -5,7 +5,7 @@ hosts: all
 sudo: "true"
 apt_install: []
 
-services:
+roles:
   - ubuntu-apt
   - create-www-data-user
   - ubuntu-php
