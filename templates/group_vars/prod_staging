@@ -1,11 +1,12 @@
 ---
-{% for role in selected_roles %}
-{% if role == 'ubuntu-symfony-nginx' %}
+
+{% for role in roles %}
+{%- if role == 'ubuntu-symfony-nginx' -%}
 dev_env: true
 {% endif %}
 
 
-{% if role == 'ubuntu-mysql' %}
+{%- if role == 'ubuntu-mysql' -%}
 mysql_databases:
   - name: CHANGE_IT_prod-staging_db_name
 
@@ -13,7 +14,9 @@ mysql_user:
   - name: CHANGE_IT_prod-staging_user_db
     password: CHANGE_IT_prod-staging_password_db
 {% endif %}
-{% if role == 'ubuntu-postgresql' %}
+
+
+{%- if role == 'ubuntu-postgresql' -%}
 # List of databases to be created
 postgresql_databases:
   - name: CHANGE_IT_prod-staging_db_name

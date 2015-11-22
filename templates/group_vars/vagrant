@@ -1,6 +1,6 @@
 ---
 
-{% for role in selected_roles %}
+{% for role in roles %}
 {% if role == 'ubuntu-symfony-nginx' %}
 dev_env: true
 {% endif %}

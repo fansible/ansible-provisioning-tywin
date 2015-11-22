@@ -47,12 +47,11 @@ TEMPLATE_ENVIRONMENT = Environment(
 
 def main(argv):
     project_config = project_type_finder()
-    #Build config reading .fansible.yml file
-    build_config(project_config)
     #Remove slashes from the project name
     project_config['project_name'] = project_config['project_name'].replace('/','-')
     #Ask the user what he needs
     user_input(project_config)
+    add_vars_files(project_config)
     #Create all the needed directories
     create_directories()
     #Copy all the roles files
@@ -69,6 +68,17 @@ def user_input(project_config):
     if project_name_input:
         #TODO: regexp to control that the name won't make any errors
         project_config['project_name'] = project_name_input
+
+    optional_roles = ['ubuntu-mysql', 'ubuntu-postgresql', 'ubuntu-mongodb']
+    for key, role in enumerate(optional_roles):
+        if not(role in project_config['roles']):
+            do_you_need_this_role(role, project_config)
+
+def do_you_need_this_role(role_name, project_config):
+    user_answer = raw_input("Do you need "+ role_name +"[y/N] ?")
+    if user_answer == "y" or user_answer == "Y":
+        project_config['roles'].append(role_name)
+
 
 #TODO:add more project types
 def project_type_finder():
@@ -141,26 +151,13 @@ def create_directories():
             os.makedirs(directory)
 
 # Build the tree of vars that will be used to generate template files
-def build_config(project_config):
-    #TODO?: create a serie of question to generate a custom fansible yaml file, yeoman?
-    config_fansible = read_file_and_return_dict(FANSIBLE_YAML)
-    # Overide the default project config with the .fansible.yml config
-    overide_dict(project_config, config_fansible)
-
-    project_config["known_roles"] = os.listdir(DIRECTORY_TYWIN_ROLES)
-    project_config["selected_roles"] = []
+def add_vars_files(project_config):
     project_config["vars_files"] = []
-
-    # Calculate selected known_roles
     for key, role in enumerate(project_config['roles']):
-        if role in project_config["known_roles"]:
-            project_config['selected_roles'].append(role)
-            print "The role " + role + " has been added to the provisioning"
-            # We build the list of vars files that will have to be copied
-            if os.path.exists(DIRECTORY_TYWIN_TEMPLATES_ANSIBLE_VARS+'/'+role+'.yml'):
-                project_config["vars_files"].append(role)
-        else:
-            print "Sorry the role "+role+" is unknow by Fansible/Tywin yet"
+        print "The role " + role + " has been added to the provisioning"
+        # We build the list of vars files that will have to be copied
+        if os.path.exists(DIRECTORY_TYWIN_TEMPLATES_ANSIBLE_VARS+'/'+role+'.yml'):
+            project_config["vars_files"].append(role)
 
     return project_config
 
@@ -184,7 +181,7 @@ def generate_template_file(template_filename, context, dest):
         ft.write(file_rendered)
 
 def copy_roles_files(project_config):
-    for key, role in enumerate(project_config['selected_roles']):
+    for key, role in enumerate(project_config['roles']):
         if role in project_config['vars_files']:
             generate_template_file(
                 '/Ansible/Vars/'+role+'.yml',

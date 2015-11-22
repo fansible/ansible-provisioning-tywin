@@ -10,13 +10,13 @@
 {% endfor %}
 
   roles:
-{% for role in selected_roles %}
+{% for role in roles %}
 {% if role != 'ubuntu-xdebug' %}
     - {{ role }}
 {% endif %}
 {% endfor %}
 
-{% if 'ubuntu-xdebug' in selected_roles %}
+{% if 'ubuntu-xdebug' in roles %}
 - name: Vagrant provisioning
   hosts: vagrant
   sudo: yes
