@@ -52,6 +52,8 @@ def main(argv):
     build_config(project_config)
     #Remove slashes from the project name
     project_config['project_name'] = project_config['project_name'].replace('/','-')
+    #Ask the user what he needs
+    user_input(project_config)
     #Create all the needed directories
     create_directories()
     #Copy all the roles files
@@ -60,6 +62,14 @@ def main(argv):
     generate_basic_provisioning_files_if_they_dont_exist(project_config)
 
     print "The provisioning has been generated. Check out the `devops` directory"
+
+def user_input(project_config):
+    project_name_input = raw_input("What's the name of the project? (Default:"+
+            project_config['project_name']+ ")"
+        )
+    if project_name_input:
+        #TODO: regexp to control that the name won't make any errors
+        project_config['project_name'] = project_name_input
 
 #TODO:add more project types
 def project_type_finder():
@@ -91,7 +101,7 @@ def project_type_finder():
     print 'Project type unknown yet. This program only knows Symfony and Nodejs projects.'
     exit()
 
-def symfony_config_loader(composer_json ):
+def symfony_config_loader(composer_json):
     print 'Symfony project detected...'
     project_config = read_file_and_return_dict(DEFAULT_SYMFONY_YAML)
     if 'name' in composer_json:
