@@ -1,12 +1,12 @@
 ---
 
-{% for service in selected_services %}
-{% if service == 'ubuntu-symfony-nginx' %}
+{% for role in selected_roles %}
+{% if role == 'ubuntu-symfony-nginx' %}
 dev_env: true
 {% endif %}
 
 
-{% if service == 'mysql' %}
+{% if role == 'mysql' %}
 mysql_databases:
   - name: {% if database_name is defined %}{{ database_name }}{% else %}vagrant{% endif %}
 
@@ -16,7 +16,7 @@ mysql_user:
 
     password: {% if database_password is defined %}{{ database_password }}{% else %}vagrant{% endif %}
 {% endif %}
-{% if service == 'postgresql' %}
+{% if role == 'postgresql' %}
 # List of databases to be created
 postgresql_databases:
   - name: {% if database_name is defined %}{{ database_name }}{% else %}vagrant{% endif %}
