@@ -19,7 +19,7 @@ This is what you will need to install if you haven't done yet:
 
 ## How to use it
 
-1) Installation
+1) Installation. Don't forget the **--recursive**
 
     git clone git@github.com:fansible/tywin.git ~/tywin --recursive
 
