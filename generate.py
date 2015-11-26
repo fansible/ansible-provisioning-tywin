@@ -87,28 +87,44 @@ def project_type_finder():
         composer_json = read_file_and_return_dict('composer.json')
         if 'require' in composer_json:
             if 'symfony/symfony' in composer_json['require']:
-
-                return symfony_config_loader(composer_json )
+                return symfony_config_loader(composer_json)
     #NodeJs projects
     if os.path.exists('package.json'):
-        print 'NodeJs project detected...'
-        project_config = read_file_and_return_dict(DEFAULT_NODEJS_YAML)
-        package_json = read_file_and_return_dict('package.json')
-        if 'name' in package_json:
-            project_config['project_name'] = package_json['name']
-        if 'dependencies' in package_json:
-            deps = package_json['dependencies']
-            if 'mongodb' in deps or 'loopback-connector-mongodb' in deps:
-                print "Database detected from package.json: mongodb"
-                project_config['roles'].append('ubuntu-mongodb')
-            if 'pg' in deps or 'loopback-connector-postgresql' in deps:
-                print "Database detected from package.json: postgresql"
-                project_config['roles'].append('ubuntu-postgresql')
+        return node_config_loader()
 
-        return project_config
+    return ask_project_type()
 
-    print 'Project type unknown yet. This program only knows Symfony and Nodejs projects.'
-    exit()
+def ask_project_type():
+    user_answer = raw_input("Is this a Symfony project (s) or a Node.js (n) project? [S/n] ?")
+    if user_answer == "s" or user_answer == "S" or user_answer == "" or user_answer == "y":
+        print 'Symfony project'
+        return read_file_and_return_dict(DEFAULT_SYMFONY_YAML)
+
+    if user_answer == "n" or user_answer == "N":
+        print 'Node.js project'
+        return read_file_and_return_dict(DEFAULT_NODEJS_YAML)
+
+    print 'You can only choose between "s" or "n"'
+
+    return ask_project_type()
+
+def node_config_loader():
+    print 'NodeJs project detected...'
+    project_config = read_file_and_return_dict(DEFAULT_NODEJS_YAML)
+    package_json = read_file_and_return_dict('package.json')
+    if 'name' in package_json:
+        project_config['project_name'] = package_json['name']
+    if 'dependencies' in package_json:
+        deps = package_json['dependencies']
+        if 'mongodb' in deps or 'loopback-connector-mongodb' in deps:
+            print "Database detected from package.json: mongodb"
+            project_config['roles'].append('ubuntu-mongodb')
+        if 'pg' in deps or 'loopback-connector-postgresql' in deps:
+            print "Database detected from package.json: postgresql"
+            project_config['roles'].append('ubuntu-postgresql')
+
+    return project_config
+
 
 def symfony_config_loader(composer_json):
     print 'Symfony project detected...'
