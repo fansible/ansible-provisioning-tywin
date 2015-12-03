@@ -4,8 +4,8 @@ server {
     server_name {{ inventory_hostname }};
     root        /var/www/{{ project_name }}/current/web;
 
-    error_log /var/www/{{ project_name }}/current/app/logs/nginx.error.log;
-    access_log /var/www/{{ project_name }}/current/app/logs/nginx.access.log;
+    error_log /var/log/nginx/{{ project_name }}.error.log;
+    access_log /var/log/nginx/{{ project_name }}.access.log;
 
     index app_dev.php;
     try_files $uri @rewrite;
