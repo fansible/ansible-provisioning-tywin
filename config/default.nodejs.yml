@@ -1,3 +1,4 @@
+project_type: "nodejs"
 project_name: test-fansible
 timezone: "Europe/Paris"
 port: 80

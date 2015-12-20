@@ -1,3 +1,4 @@
+project_type: "symfony"
 project_name: test-fansible
 timezone: "Europe/Paris"
 port: 80

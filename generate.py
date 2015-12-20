@@ -1,3 +1,4 @@
+#TODO:check if the roles has been installed
 import os, shutil, sys, imp
 
 if sys.version_info.major != 2:
@@ -26,12 +27,12 @@ DIRECTORY_PROVISIONING_VARS = DIRECTORY_PROVISIONING+'/vars'
 DIRECTORY_PROVISIONING_HOSTS = DIRECTORY_PROVISIONING+'/hosts'
 DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS = DIRECTORY_PROVISIONING+'/group_vars'
 DIRECTORY_PROVISIONING_FANSIBLE_ROLES = DIRECTORY_PROVISIONING_ROLES+'/fansible-roles'
+DIRECTORY_DEPLOYMENT = DIRECTORY_DEVOPS+'/deploy'
+DIRECTORY_DEPLOYMENT_STAGES = DIRECTORY_DEPLOYMENT+'/stages'
 DIRECTORY_TYWIN = os.path.dirname(os.path.abspath(__file__))
 DIRECTORY_TYWIN_ROLES = DIRECTORY_TYWIN+'/roles'
 DIRECTORY_TYWIN_CONFIG = DIRECTORY_TYWIN+'/config'
 DIRECTORY_TYWIN_TEMPLATES = DIRECTORY_TYWIN+'/templates'
-DIRECTORY_TYWIN_TEMPLATES_ANSIBLE = DIRECTORY_TYWIN_TEMPLATES+'/Ansible'
-DIRECTORY_TYWIN_TEMPLATES_ANSIBLE_VARS = DIRECTORY_TYWIN_TEMPLATES_ANSIBLE+'/Vars'
 
 #Files
 FANSIBLE_YAML = '.fansible.yml'
@@ -52,12 +53,12 @@ def main(argv):
     #Ask the user what he needs
     user_input(project_config)
     add_vars_files(project_config)
-    #Create all the needed directories
     create_directories()
-    #Copy all the roles files
     copy_roles_files(project_config)
     #generate playbook, ansible.cfg, Vagrantfile, ..
     generate_basic_provisioning_files_if_they_dont_exist(project_config)
+    if project_config['project_type'] == 'symfony':
+        generate_deployment_files(project_config)
 
     print "The provisioning has been generated. Check out the `devops` directory"
 
@@ -159,7 +160,9 @@ def create_directories():
         DIRECTORY_PROVISIONING_FANSIBLE_ROLES,
         DIRECTORY_PROVISIONING_VARS,
         DIRECTORY_PROVISIONING_HOSTS,
-        DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS
+        DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS,
+        DIRECTORY_DEPLOYMENT,
+        DIRECTORY_DEPLOYMENT_STAGES
     ]
 
     for directory in directories:
@@ -172,7 +175,7 @@ def add_vars_files(project_config):
     for key, role in enumerate(project_config['roles']):
         print "The role " + role + " has been added to the provisioning"
         # We build the list of vars files that will have to be copied
-        if os.path.exists(DIRECTORY_TYWIN_TEMPLATES_ANSIBLE_VARS+'/'+role+'.yml'):
+        if os.path.exists(DIRECTORY_TYWIN_TEMPLATES+'/ansible/vars/'+role+'.yml'):
             project_config["vars_files"].append(role)
 
     return project_config
@@ -196,11 +199,15 @@ def generate_template_file(template_filename, context, dest):
         file_rendered = render_template(template_filename, context)
         ft.write(file_rendered)
 
+def generate_file_if_it_doesnt_exist(target_file, source_file, project_config):
+    if not os.path.exists(target_file):
+        generate_template_file(source_file, project_config, target_file)
+
 def copy_roles_files(project_config):
     for key, role in enumerate(project_config['roles']):
         if role in project_config['vars_files']:
             generate_template_file(
-                '/Ansible/Vars/'+role+'.yml',
+                '/ansible/vars/'+role+'.yml',
                 project_config,
                 DIRECTORY_PROVISIONING_VARS+'/'+role+'.yml'
             )
@@ -224,12 +231,10 @@ def read_file_and_return_dict(name):
     return returned_dict
 
 def generate_basic_provisioning_files_if_they_dont_exist(project_config):
-    #Copy ansible.cfg
-    if not os.path.exists('ansible.cfg'):
-        shutil.copy(DIRECTORY_TYWIN_TEMPLATES+'/Ansible/ansible.cfg', 'ansible.cfg')
+    copy_if_doesnt_exist(DIRECTORY_TYWIN_TEMPLATES+'/ansible/ansible.cfg', 'ansible.cfg')
 
-    generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING+'/playbook.yml', 'Ansible/playbook.yml', project_config)
-    generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_VARS+'/main.yml', 'Ansible/Vars/main.yml', project_config)
+    generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING+'/playbook.yml', 'ansible/playbook.yml', project_config)
+    generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_VARS+'/main.yml', 'ansible/vars/main.yml', project_config)
     generate_file_if_it_doesnt_exist('Vagrantfile', 'Vagrantfile', project_config)
     generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_HOSTS+'/vagrant', 'hosts/vagrant', project_config)
     generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_HOSTS+'/staging', 'hosts/staging', project_config)
@@ -238,10 +243,16 @@ def generate_basic_provisioning_files_if_they_dont_exist(project_config):
     generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/staging', 'group_vars/prod_staging', project_config)
     generate_file_if_it_doesnt_exist(DIRECTORY_PROVISIONING_HOSTS_GROUP_VARS+'/prod', 'group_vars/prod_staging', project_config)
 
-def generate_file_if_it_doesnt_exist(target_file, source_file, project_config):
-    if not os.path.exists(target_file):
-        generate_template_file(source_file, project_config, target_file)
+def generate_deployment_files(project_config):
+    copy_if_doesnt_exist(DIRECTORY_TYWIN_TEMPLATES+'/capistrano/Gemfile', 'Gemfile')
+    copy_if_doesnt_exist(DIRECTORY_TYWIN_TEMPLATES+'/capistrano/Gemfile.lock', 'Gemfile.lock')
+    copy_if_doesnt_exist(DIRECTORY_TYWIN_TEMPLATES+'/capistrano/Capfile', 'Capfile')
+    generate_file_if_it_doesnt_exist(DIRECTORY_DEPLOYMENT+'/deploy.rb', 'capistrano/deploy/deploy.rb', project_config)
+    generate_file_if_it_doesnt_exist(DIRECTORY_DEPLOYMENT_STAGES+'/prod.rb', 'capistrano/deploy/stages/prod.rb', project_config)
 
-#TODO: create verbose options, check out yeoman
+def copy_if_doesnt_exist(src, target):
+    if not os.path.exists(target):
+        shutil.copy(src, target)
+
 if __name__ == "__main__":
     main(sys.argv[1:])
