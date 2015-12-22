@@ -19,9 +19,9 @@ This is what you will need to install if you haven't done yet:
 
 ## How to use it
 
-1) Installation. Don't forget the **--recursive**
+1) Installation.
 
-    git clone git@github.com:fansible/tywin.git ~/tywin --recursive
+    git clone git@github.com:fansible/tywin.git ~/tywin
 
 2) Generate the default conf
 
