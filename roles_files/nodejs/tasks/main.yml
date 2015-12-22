@@ -1,0 +1,5 @@
+---
+
+- include: nodejs.yml
+  when: nodejs_enabled
+  tags: [nodejs]

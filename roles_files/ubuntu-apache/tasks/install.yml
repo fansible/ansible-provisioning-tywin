@@ -1,0 +1,16 @@
+---
+
+- name: Add repository to install last Apache version
+  apt_repository:
+    repo="{{ apache_repository }}"
+    update_cache=yes
+  when: apache_repository != false
+
+- name: Install packages.
+  apt:
+    update_cache=yes
+    cache_valid_time=3600
+    pkg="{{ item }}"
+    state=present
+  with_items: apache_install
+  when: apache_install != false

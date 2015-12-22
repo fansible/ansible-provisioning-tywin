@@ -1,0 +1,19 @@
+---
+
+- name: Disable apache site
+  shell:
+    a2dissite {{ item }}
+  register: apache_cmd
+  changed_when: apache_cmd.stdout.endswith(' already disabled') == false
+  notify: Restart apache
+  with_items: apache_site_disable
+  when: apache_site_disable != false
+
+- name: Enable apache site
+  shell:
+    a2ensite {{ item }}
+  register: apache_cmd
+  changed_when: apache_cmd.stdout.endswith(' already enabled') == false
+  notify: Restart apache
+  with_items: apache_site_enable
+  when: apache_site_enable != false

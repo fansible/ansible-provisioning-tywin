@@ -1,0 +1,6 @@
+---
+
+- include: install.yml
+- include: vhost.yml
+- include: module.yml
+- include: site.yml

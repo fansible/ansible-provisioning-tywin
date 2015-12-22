@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  sudo: true
+  vars:
+      apt_install: [cowsay]
+  roles:
+    - { role: ../../ansible-role-apt, tags: apt }

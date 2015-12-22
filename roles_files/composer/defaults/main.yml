@@ -1,0 +1,14 @@
+---
+
+composer_path: /usr/local/bin/composer
+composer_update: true
+composer_update_day: 20
+composer_path_env: False
+#composer_home_path: /opt/composer
+composer_home_owner: root
+composer_home_group: root
+composer_global_packages: {}
+
+# Visit https://github.com/settings/applications 
+# and generate personal access token
+composer_github_oauth: false

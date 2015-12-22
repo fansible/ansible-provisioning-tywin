@@ -1,0 +1,28 @@
+---
+
+galaxy_info:
+  author: kosssi
+  description: Install and Update Composer PHP Dependency Manager
+  license: license MIT
+  min_ansible_version: 1.5
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+  - name: Fedora
+    versions:
+    - all
+  - name: CentOS
+    versions:
+    - all
+  - name: Redhat
+    versions:
+    - all
+  categories:
+    - packaging
+    - web
+    - php
+    - composer

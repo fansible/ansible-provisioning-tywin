@@ -1,0 +1,7 @@
+---
+
+- name: Configure github oauth token
+  template:
+    src: ".composer/auth.json.j2"
+    dest: "{{ composer_home_path|default('~/.composer') }}/auth.json"
+  when: composer_github_oauth != false

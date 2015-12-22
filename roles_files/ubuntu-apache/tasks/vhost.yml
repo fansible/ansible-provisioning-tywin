@@ -1,0 +1,58 @@
+---
+
+- name: Add apache vhosts configurations
+  template:
+    src="{{item.template | default('vhost.conf.j2')}}"
+    dest="/etc/apache2/sites-available/{{ item.server_file_name }}.conf"
+    owner=root group=root mode=644
+  notify: Restart apache
+  with_items: apache_vhosts
+  when: apache_vhosts != false
+
+- name: Ensure apache SSL path exists
+  file: path="{{apache_ssl_path}}" state=directory
+
+- name: Ensure document root exists
+  file: path="{{item.document_root}}" state=directory
+  notify: Restart apache
+  with_items: apache_vhosts
+  when: apache_vhosts != false
+
+- name: Copy key
+  command: rsync -i --checksum "{{apache_ssl_key_store}}/{{item.1.key_file}}" "{{apache_ssl_path}}/{{item.1.key_file}}"
+  register: result
+  changed_when: result.stdout
+  notify: Restart apache
+  with_subelements:
+   - apache_vhosts
+   - virtual_hosts
+  when: apache_vhosts != false and item.1.has_ssl == true
+
+- name: Fix key permissions
+  file: path="{{apache_ssl_path}}/{{item.1.key_file}}" mode=0600 state=file
+  with_subelements:
+   - apache_vhosts
+   - virtual_hosts
+  when: apache_vhosts != false and item.1.has_ssl == true
+
+- name: Copy certificate
+  copy:
+    src: "site_files/certificates/{{item.1.certificate_file}}"
+    dest: "{{apache_ssl_path}}"
+    mode: 0600
+  notify: Restart apache
+  with_subelements:
+   - apache_vhosts
+   - virtual_hosts
+  when: apache_vhosts != false and item.1.has_ssl == true
+
+- name: Copy chain certificate if present
+  copy:
+    src: "site_files/certificates/{{item.1.chain_file}}"
+    dest: "{{apache_ssl_path}}"
+    mode: 0600
+  notify: Restart apache
+  with_subelements:
+   - apache_vhosts
+   - virtual_hosts
+  when: apache_vhosts != false and item.1.has_ssl == true and item.1.chain_file is defined

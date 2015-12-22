@@ -1,0 +1,47 @@
+{% for host in item.virtual_hosts %}
+<VirtualHost *:{{ host.port | default('80') }}>
+    ServerName {{ item.server_name }}
+{% if host.server_alias is defined %}    ServerAlias {{ host.server_alias | join(' ') }}
+{% endif %}
+{% if item.server_admin is defined %}    ServerAdmin {{ item.server_admin }}
+{% endif %}
+
+{% if host.has_ssl %}
+    SSLEngine On
+    SSLCertificateFile /etc/apache2/ssl/{{host.certificate_file}}
+    SSLCertificateKeyFile /etc/apache2/ssl/{{host.key_file}}
+{% if host.chain_file is defined %}    SSLCertificateChainFile /etc/apache2/ssl/{{ host.chain_file }}
+{% endif %}
+    
+{% endif %}
+    DocumentRoot {{ item.document_root }}
+{% if item.virtualhost_extra is defined %}{% for extra in item.virtualhost_extra %}
+    {{ extra }}
+{% endfor %}{% endif %}
+
+    <Directory />
+        Options FollowSymLinks
+        AllowOverride None
+    </Directory>
+
+    <Directory "{{ item.document_root }}">
+        Options -Indexes +FollowSymLinks
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+
+{% if item.directory_extra is defined %}{% for extra in item.directory_extra %}
+        {{ extra }}
+{% endfor %}{% endif %}
+
+    </Directory>
+    
+    # Possible values include: debug, info, notice, warn, error, crit,
+    # alert, emerg.
+    LogLevel warn
+
+    ErrorLog ${APACHE_LOG_DIR}/{{item.server_file_name}}_error.log
+    CustomLog ${APACHE_LOG_DIR}/{{item.server_file_name}}_access.log combined
+
+</VirtualHost>
+{% endfor %}

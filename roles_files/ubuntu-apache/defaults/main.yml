@@ -1,0 +1,57 @@
+---
+
+# apache_repository: ppa:ptn107/apache
+apache_repository: false
+
+apache_install:
+  - apache2
+    # Note: rsync is required by the key copy command in vhosts.yml used
+    # to copy ssl keys stored on the remote node. When Ansible has a
+    # core module that supports remote -> remote copy this dependency
+    # can be removed.
+  - rsync
+
+apache_module_disable: false
+apache_module_enable:
+  - rewrite
+  - ssl
+
+apache_site_disable:
+  - 000-default
+  - default-ssl
+apache_site_enable:
+  - test.conf
+
+apache_ssl_key_store: "/root/csr"
+apache_ssl_path: "/etc/apache2/ssl"
+
+apache_vhosts:
+  - server_name: test.dev
+    server_admin: test@example.com
+    server_file_name: test
+    document_root: /var/www/test
+    directory_extra:
+      - RewriteEngine On
+    virtual_hosts:
+      - has_ssl: false
+        port: 80
+        server_alias: 
+          - test.local
+          - test.localnet
+  - server_name: test-ssl.dev
+    server_admin: test-ssl@example.com
+    server_file_name: test-ssl
+    document_root: /var/www/test-ssl
+    template: vhost_ssl.conf.j2
+    directory_extra:
+      - RewriteEngine On
+    virtual_hosts:
+      - has_ssl: false
+        port: 80
+        server_alias: 
+          - test-ssl.local
+          - test-ssl.localnet
+      - has_ssl: true
+        port: 443
+        certificate_file: "test-ssl.pem"
+        key_file: "test-ssl.key"
