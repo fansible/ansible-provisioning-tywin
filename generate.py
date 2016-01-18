@@ -1,4 +1,3 @@
-#TODO:check if the roles has been installed
 import os, shutil, sys, imp
 
 if sys.version_info.major != 2:

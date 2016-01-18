@@ -12,7 +12,7 @@ mysql_databases:
 
 mysql_user:
   - name: CHANGE_IT_prod-staging_user_db
-    password: CHANGE_IT_prod-staging_password_db
+    pass: CHANGE_IT_prod-staging_password_db
 {% endif %}
 
 
@@ -24,7 +24,7 @@ postgresql_databases:
 # List of users to be created
 postgresql_users:
   - name: CHANGE_IT_prod-staging_user_db
-    password: CHANGE_IT_prod-staging_password_db
+    pass: CHANGE_IT_prod-staging_password_db
 
 postgresql_user_privileges:
   - name: CHANGE_IT_prod-staging_user_db
