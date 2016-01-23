@@ -20,6 +20,8 @@ mysql_user:
 # List of databases to be created
 postgresql_databases:
   - name: CHANGE_IT_prod-staging_db_name
+    hstore: yes
+    uuid_ossp: yes
 
 # List of users to be created
 postgresql_users:
