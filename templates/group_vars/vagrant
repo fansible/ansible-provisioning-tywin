@@ -20,6 +20,7 @@ mysql_user:
 # List of databases to be created
 postgresql_databases:
   - name: {% if database_name is defined %}{{ database_name }}{% else %}vagrant{% endif %}
+
     hstore: yes
     uuid_ossp: yes
 
