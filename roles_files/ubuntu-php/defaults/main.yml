@@ -22,6 +22,7 @@ php_packages:
   - php5
   - php5-fpm
   - php5-mysql
+  - php5-pgsql
   - php5-mcrypt
   - php5-cli
   - php5-common
