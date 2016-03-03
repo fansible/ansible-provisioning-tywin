@@ -1,4 +1,4 @@
-import os, shutil, sys, imp
+import os, shutil, sys, imp, json
 
 if sys.version_info.major != 2:
     print "This program only works with python 2.6 or 2.7 (like Ansible)"
@@ -36,6 +36,7 @@ DIRECTORY_TYWIN_TEMPLATES = DIRECTORY_TYWIN+'/templates'
 #Files
 FANSIBLE_YAML = '.fansible.yml'
 DEFAULT_SYMFONY_YAML = DIRECTORY_TYWIN_CONFIG+'/default.symfony.yml'
+DEFAULT_LARAVEL_YAML = DIRECTORY_TYWIN_CONFIG+'/default.laravel.yml'
 DEFAULT_NODEJS_YAML = DIRECTORY_TYWIN_CONFIG+'/default.nodejs.yml'
 
 #Configs
@@ -88,6 +89,9 @@ def project_type_finder():
         if 'require' in composer_json:
             if 'symfony/symfony' in composer_json['require']:
                 return symfony_config_loader(composer_json)
+            if 'laravel/framework' in composer_json['require']:
+                return laravel_config_loader(composer_json)
+
     #NodeJs projects
     if os.path.exists('package.json'):
         return node_config_loader()
@@ -148,6 +152,13 @@ def symfony_config_loader(composer_json):
     else:
         print "No database detected from parameters.yml"
 
+    return project_config
+
+def laravel_config_loader(composer_json):
+    print 'Laravel project detected...'
+    project_config = read_file_and_return_dict(DEFAULT_LARAVEL_YAML)
+    if 'name' in composer_json:
+        project_config['project_name'] = composer_json['name']
     return project_config
 
 #Create directories
@@ -222,7 +233,10 @@ def copy_roles_files(project_config):
 def read_file_and_return_dict(name):
     if os.path.exists(name):
         fv = open(name)
-        returned_dict = yaml.safe_load(fv)
+        if ".json" in name:
+            returned_dict = json.load(fv)
+        else:
+            returned_dict = yaml.safe_load(fv)
         fv.close()
     else:
         returned_dict = {}

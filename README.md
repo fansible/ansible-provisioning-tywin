@@ -1,9 +1,10 @@
 # Fansible Tywin
 ##Your application within 1 hour in production !
-Create easily your Ansible provisioning for Node.js and Symfony projects.
+Create easily your Ansible provisioning for Symfony, Laravel and Node.js projects.
 
 ![Ansible](https://upload.wikimedia.org/wikipedia/commons/0/05/Ansible_Logo.png)
 ![Symfony](http://findicons.com/files/icons/2773/pictonic_free/256/prog_symfony.png)
+![Laravel](https://pbs.twimg.com/profile_images/612925182307516416/byxyJx_Q.png)
 ![Nodejs](http://dius.wordpress.dius.com.au/wp-content/uploads/sites/2/2015/06/NodeJS-Small-Blog-Feature-Image-.jpg)
 
 ##Requirements

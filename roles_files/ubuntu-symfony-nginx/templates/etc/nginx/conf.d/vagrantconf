@@ -16,9 +16,6 @@ server {
     gzip_proxied    any;
     gzip_types      application/javascript application/x-javascript application/json text/css;
 
-
-    add_header X-Robots-Tag "noindex, nofollow";
-
     location @rewrite {
         rewrite ^/?(.*)$ /app_dev.php/$1 last;
     }

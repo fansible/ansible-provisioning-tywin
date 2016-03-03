@@ -2,7 +2,7 @@
 
 - name: Provisioning {{ project_name }}
   hosts: {{ hosts }}
-  sudo: {{ sudo }}
+  become: {{ sudo }}
   vars_files:
     - vars/main.yml
 {% for role in vars_files %}
@@ -19,7 +19,7 @@
 {% if 'ubuntu-xdebug' in roles %}
 - name: Vagrant provisioning
   hosts: vagrant
-  sudo: yes
+  become: yes
   gather_facts: true
   roles:
    - ubuntu-xdebug
