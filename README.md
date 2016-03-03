@@ -65,7 +65,6 @@ What you can do:
 
 3) Overide vars (in `devops/provisioning/vars`).
 
-## Road map
-Follow the next things that will be done and vote for your favorite feature on the [trello board](https://trello.com/b/IlQopRrK/fansible-tywin)
+## Stay in touch
 
 If you have any question ask me on [Twitter](https://twitter.com/maxthoon) !
