@@ -3,9 +3,9 @@
 Create easily your Ansible provisioning for Symfony, Laravel and Node.js projects.
 
 ![Ansible](https://upload.wikimedia.org/wikipedia/commons/0/05/Ansible_Logo.png)
-![Symfony](http://findicons.com/files/icons/2773/pictonic_free/256/prog_symfony.png)
-![Laravel](https://pbs.twimg.com/profile_images/612925182307516416/byxyJx_Q.png)
-![Nodejs](http://dius.wordpress.dius.com.au/wp-content/uploads/sites/2/2015/06/NodeJS-Small-Blog-Feature-Image-.jpg)
+![Symfony](http://symfony.com/images/v5/logos/sf-positive.svg)
+![Laravel](http://laravelacademy.org/wp-content/uploads/2015/09/laravel-5-1-icon.png)
+![Nodejs](https://avatars2.githubusercontent.com/u/9158694?v=3&s=200)
 
 ##Requirements
 This have been tested with the Ubuntu OS. It should work with many other various Debian distribution. Feel free to share your advice for the other OS..
