@@ -2,9 +2,9 @@
 ##Your application within 1 hour in production !
 Create easily your Ansible provisioning for Node.js and Symfony projects.
 
-![Ansible](https://avatars1.githubusercontent.com/u/1507452?s=150 =150x)
-![Symfony](https://avatars0.githubusercontent.com/u/143937?v=3&s=150 =150x)
-![Nodejs](https://openfin.co/wp-content/uploads/2015/05/nodejs_logo.png =150x)
+![Ansible](https://upload.wikimedia.org/wikipedia/commons/0/05/Ansible_Logo.png)
+![Symfony](http://findicons.com/files/icons/2773/pictonic_free/256/prog_symfony.png)
+![Nodejs](http://dius.wordpress.dius.com.au/wp-content/uploads/sites/2/2015/06/NodeJS-Small-Blog-Feature-Image-.jpg)
 
 ##Requirements
 This have been tested with the Ubuntu OS. It should work with many other various Debian distribution. Feel free to share your advice for the other OS..
