@@ -68,15 +68,4 @@ What you can do:
 ## Road map
 Follow the next things that will be done and vote for your favorite feature on the [trello board](https://trello.com/b/IlQopRrK/fansible-tywin)
 
-##Thanks
-A lot of roles have been created by other people.
-I mainly found them in three places where really nice roles are being maintained:
-https://github.com/ANXS, https://github.com/Stouts and https://github.com/geerlingguy.
-
-Thanks a lot to [pjan vandaele](https://twitter.com/pjan),
-[Kirill Klenov](https://github.com/klen) and [Jeff Geerling](http://jeffgeerling.com/)
-for the amazing job they have done.
-
-Special thanks to my friend [Simon](http://sconstans.fr/).
-
-Maxime
+If you have any question ask me on [Twitter](https://twitter.com/maxthoon) !
