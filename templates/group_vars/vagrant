@@ -11,11 +11,13 @@ mysql_databases:
   - name: {% if database_name is defined %}{{ database_name }}{% else %}vagrant{% endif %}
 
 
-mysql_user:
+mysql_users:
   - name: {% if database_user is defined %}{{ database_user }}{% else %}vagrant{% endif %}
 
     pass: {% if database_password is defined %}{{ database_password }}{% else %}vagrant{% endif %}
+
 {% endif %}
+
 {%- if role == 'ubuntu-postgresql' -%}
 # List of databases to be created
 postgresql_databases:
