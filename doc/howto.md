@@ -1,5 +1,8 @@
 # How to use it
 
+If you want to have more information on the use of Ansible/Vagrant for you development environment, I wrote a [blog post about it](http://cloudacademy.com/blog/deploy-web-applications-on-iaas-with-ansible/). 
+
+
 1) Installation.
 
     git clone git@github.com:fansible/tywin.git ~/tywin
