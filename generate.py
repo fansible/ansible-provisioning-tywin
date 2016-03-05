@@ -99,7 +99,7 @@ def project_type_finder():
     return ask_project_type()
 
 def ask_project_type():
-    user_answer = raw_input("Is this a Symfony project (s) or a Node.js (n) project? [S/n] ?")
+    user_answer = raw_input("Is this a Symfony project (s), Laravel project (l) or a Node.js (n) project? [S/l/n] ?")
     if user_answer == "s" or user_answer == "S" or user_answer == "" or user_answer == "y":
         print 'Symfony project'
         return read_file_and_return_dict(DEFAULT_SYMFONY_YAML)
@@ -108,7 +108,11 @@ def ask_project_type():
         print 'Node.js project'
         return read_file_and_return_dict(DEFAULT_NODEJS_YAML)
 
-    print 'You can only choose between "s" or "n"'
+    if user_answer == "l" or user_answer == "L":
+        print 'Laravel project'
+        return read_file_and_return_dict(DEFAULT_LARAVEL_YAML)
+
+    print 'You can only choose between "s", "l" or "n"'
 
     return ask_project_type()
 
