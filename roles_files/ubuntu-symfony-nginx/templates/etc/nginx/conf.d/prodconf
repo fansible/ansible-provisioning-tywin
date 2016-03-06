@@ -7,7 +7,7 @@ server {
     error_log /var/log/nginx/{{ project_name }}.error.log;
     access_log /var/log/nginx/{{ project_name }}.access.log;
 
-    index app_dev.php;
+    index app.php;
     try_files $uri @rewrite;
 
     gzip            on;
