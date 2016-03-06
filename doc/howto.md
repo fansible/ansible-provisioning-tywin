@@ -34,7 +34,7 @@ If it's OK you can provision the VM
 
 Provision it with `ansible-playbook -i devops/provisioning/hosts/vagrant devops/provisioning/playbook.yml`.
 
-Your VM is now ready ! You can see your project in the browser at the IP's adress (10.0.0.10 if you haven't change anything) =)
+Your VM is now ready! You can see your project in your browser at the IP's adress (10.0.0.10 if you haven't changed anything) =)
 
 ### Database configuration
 Change the value of the database configuration in `devops/provisioning/hosts/group_vars/vagrant`
