@@ -31,5 +31,6 @@ php_packages:
   - php5-gd
   - php5-ldap
   - php-apc
+  - php5-sqlite
 
 php_webserver_daemon: "nginx"
