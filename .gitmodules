@@ -19,3 +19,6 @@
 [submodule "roles/ubuntu-postgresql"]
 	path = roles/ubuntu-postgresql
 	url = git@github.com:ANXS/postgresql.git
+[submodule "roles/role-composer"]
+	path = roles/role-composer
+	url = git@github.com:geerlingguy/ansible-role-composer.git
