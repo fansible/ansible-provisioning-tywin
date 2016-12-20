@@ -14,14 +14,6 @@ roles:
   - ubuntu-laravel-nginx
   - ubuntu-xdebug
 
-vagrant:
-  ip: 10.0.0.10
-  box: "ubuntu/trusty64"
-  memory: 1024
-  cpus: 1
-  exec: 100
-  src: .
-
 database_name: 'homestead'
 database_user: 'homestead'
 database_password: 'secret'
