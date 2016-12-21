@@ -1,15 +1,14 @@
 ---
 galaxy_info:
   author: Maxime Thoonsen
-  description: PHP XDebug for Ubuntu Trusty and Precise
+  description: PHP XDebug for Ubuntu Xenial
   company: "Theodo"
   license: "license (BSD, MIT)"
   min_ansible_version: 1.4
   platforms:
   - name: Ubuntu
     versions:
-    - Trusty
-    - Precise
+    - xenial
   categories:
     - development
     - web
