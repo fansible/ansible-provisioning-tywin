@@ -1,7 +1,0 @@
----
-
-- hosts: all
-  remote_user: root
-  sudo: yes
-  roles:
-    - mysql
