@@ -1,8 +1,6 @@
 # Ansible Role: PHP-XDebug
 
-[![Build Status](https://travis-ci.org/MaximeThoonsen/ansible-role-php-xdebug.svg?branch=master)](https://travis-ci.org/MaximeThoonsen/ansible-role-php-xdebug)
-
-Installs PHP [XDebug](http://xdebug.org/) on Ubuntu Trusty(14.04) or Precise(12.04).
+Installs PHP [XDebug](http://xdebug.org/) on Ubuntu Xenial.
 
 ## Requirements
 
@@ -37,7 +35,7 @@ The IDE key to use in the URL when making Xdebug requests (e.g. `http://example.
 
     - hosts: webservers
       roles:
-        - { role: MaximeThoonsen.php5-xdebug }
+        - ubuntu-xdebug
 
 ## License
 
