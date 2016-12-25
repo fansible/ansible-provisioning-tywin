@@ -10,8 +10,7 @@ apt_dependencies:
   - python-apt
   - aptitude
 
-apt_install: false
-# apt_install:
+# apt_specific_packages:
 #   - python-apt
 #   - unattended-upgrades
 

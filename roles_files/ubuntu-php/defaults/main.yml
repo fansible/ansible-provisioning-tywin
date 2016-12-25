@@ -1,36 +1,43 @@
 ---
-# Pass in a comma-separated list of repos to use (e.g. "remi,epel").
-php_enablerepo: ""
-php_memory_limit: "256M"
-php_max_execution_time: "60"
-php_upload_max_filesize: "64M"
-php_apc_cache_by_default: "1"
-php_apc_shm_size: "96M"
-php_date_timezone: "Europe/Paris"
-php_enable_php_fpm: true
-
-php_conf_basepath: /etc/php5
-
-php_conf_files:
-  - { name: php.ini, dest: /cli }
-  - { name: apc.ini, dest: /mods-available }
-
-php_mods:
-  - { name: apc.ini, dest: /cli,     size: 20 }
-
 php_packages:
-  - php5
-  - php5-fpm
-  - php5-mysql
-  - php5-pgsql
-  - php5-mcrypt
-  - php5-cli
-  - php5-common
-  - php5-curl
-  - php5-dev
-  - php5-gd
-  - php5-ldap
-  - php-apc
-  - php5-sqlite
+  - php7.0
+  - php7.0-fpm
+  - php7.0-pgsql
+  - php7.0-mysql
+  - php-mongodb
+  - php7.0-mcrypt
+  - php7.0-cli
+  - php7.0-common
+  - php7.0-curl
+  - php7.0-dev
+  - php7.0-gd
+  - php7.0-ldap
+  - php7.0-mbstring
+  - php7.0-xml
+  - php7.0-zip
+  - php7.0-bcmath
+  - php7.0-opcache
+  - php7.0-intl
+  - php-apcu
 
-php_webserver_daemon: "nginx"
+php_timezone: UTC
+php_upload_max_filesize: "64M"
+php_post_max_size: "20M"
+php_memory_limit_fpm: "256M"
+php_memory_limit_cli: "768M"
+php_max_execution_time: 60
+
+php_opcache_enable: 1
+php_opcache_revalidate_freq: 0
+
+# set it to 1 in dev env
+php_opcache_validate_timestamps: 0
+
+# next prime number after the number of file you want to check (20000 in our case)
+php_opcache_max_accelerated_files: 20011
+
+php_opcache_memory_consumption: 192 # in Mb
+php_opcache_interned_strings_buffer: 16 # in Mb
+php_opcache_fast_shutdown: 1
+
+php_fpm_disabled_functions: exec,passthru,shell_exec,system,proc_open,popen

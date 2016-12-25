@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Arkadiusz Kondas
+  description: Installs and configure PHP 7 on Debian/Ubuntu servers
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+  galaxy_tags:
+    - php
+    - php7
+    - web
+dependencies: []

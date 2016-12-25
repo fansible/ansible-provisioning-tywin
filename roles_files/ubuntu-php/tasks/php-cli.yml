@@ -1,0 +1,18 @@
+---
+- name: Ensure timezone is set in cli php.ini
+  lineinfile: dest=/etc/php/7.0/cli/php.ini
+              regexp='^[\s;]*date.timezone\s*='
+              line='date.timezone={{ php_timezone }}'
+              create=yes
+
+- name: disabling opcache cli
+  lineinfile: dest=/etc/php/7.0/cli/php.ini
+              regexp='^[\s;]*opcache.enable_cli\s*='
+              line='opcache.enable_cli=0'
+              create=yes
+
+- name: Set memory_limit cli
+  lineinfile: dest=/etc/php/7.0/fpm/php.ini
+              regexp='^[\s;]*memory_limit\s*='
+              line='memory_limit={{ php_memory_limit_cli }}'
+              create=yes

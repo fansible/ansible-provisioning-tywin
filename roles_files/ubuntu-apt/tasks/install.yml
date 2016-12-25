@@ -1,8 +1,15 @@
 ---
 
-- name: Install packages.
+- name: Install Common packages.
   apt:
     pkg="{{ item }}"
     state=present
-  with_items: apt_install
-  when: apt_install
+  with_items: "{{apt_common_packages}}"
+  when: apt_common_packages is defined
+
+- name: Install Specific packages.
+  apt:
+    pkg="{{ item }}"
+    state=present
+  with_items: "{{apt_specific_packages}}"
+  when: apt_specific_packages is defined
