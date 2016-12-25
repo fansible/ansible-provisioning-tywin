@@ -1,8 +1,5 @@
 # How to use it
 
-If you want to have more information on the use of Ansible/Vagrant for you development environment, I wrote a [blog post about it](http://cloudacademy.com/blog/deploy-web-applications-on-iaas-with-ansible/). 
-
-
 1) Installation.
 
     git clone git@github.com:fansible/tywin.git ~/tywin
@@ -33,11 +30,15 @@ If it's OK you can provision the VM
 5) Provision the VM
 
 Provision it with `ansible-playbook -i devops/provisioning/hosts/vagrant devops/provisioning/playbook.yml`.
+If something goes wrong you can go inside you vagrant and try do execute manually in your shell the Ansible task that is failing.
 
-Your VM is now ready! You can see your project in your browser at the IP's adress (10.0.0.10 if you haven't changed anything) =)
+After that, your VM is now ready! You can see your project in your browser at the IP's adress (10.0.0.10 if you haven't changed anything) =)
+
+6) Now you can do the same for your staging/production environment.
+Update the file in `devops/provisioning/hosts/staging` and add the IP or domain of your server.
 
 ### Database configuration
-Change the value of the database configuration in `devops/provisioning/hosts/group_vars/vagrant`
+Change the value of the database configuration in `devops/provisioning/group_vars/vagrant`
 
 ### Go further: customize your provisioning
 What you can do:
@@ -47,3 +48,5 @@ What you can do:
 2) Modify the playbook to call your roles.
 
 3) Overide vars (in `devops/provisioning/vars`).
+
+If you want to have more information on the use of Ansible/Vagrant for you development environment, I wrote a [blog post about it](http://cloudacademy.com/blog/deploy-web-applications-on-iaas-with-ansible/).
