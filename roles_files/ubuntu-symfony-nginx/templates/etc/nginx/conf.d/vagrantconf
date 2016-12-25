@@ -21,14 +21,16 @@ server {
     }
 
     location ~ ^/(app|app_dev)\.php {
-        fastcgi_index $1.php;
-        fastcgi_pass   unix:/var/run/php5-fpm.sock;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        include fastcgi_params;
-
-        # Added to avoid 502 Bad Gateway errors
-        fastcgi_buffer_size 512k;
-        fastcgi_buffers 16 512k;
+      fastcgi_index $1.php;
+      fastcgi_pass unix:/var/run/php/php-fpm.sock;
+      fastcgi_param  SCRIPT_FILENAME  $realpath_root$fastcgi_script_name;
+      fastcgi_param DOCUMENT_ROOT $realpath_root;
+      fastcgi_buffer_size       128k;
+      fastcgi_buffers           4 256k;
+      fastcgi_busy_buffers_size 256k;
+      # To determinate if the request is HTTP or HTTPS
+      fastcgi_param HTTPS $ssl;
+      include fastcgi_params;
     }
 
     location ~* \.(css|txt|xml|js|gif|jpe?g|png|ico)$ {
