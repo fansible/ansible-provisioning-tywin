@@ -1,28 +1,43 @@
 ---
+dependencies: []
 
 galaxy_info:
-  author: kosssi
-  description: Install and Update Composer PHP Dependency Manager
-  license: license MIT
-  min_ansible_version: 1.5
+  author: geerlingguy
+  description: Composer PHP Dependency Manager
+  company: "Midwestern Mac, LLC"
+  license: "license (BSD, MIT)"
+  min_ansible_version: 1.9
   platforms:
-  - name: Ubuntu
-    versions:
-    - all
-  - name: Debian
-    versions:
-    - all
-  - name: Fedora
-    versions:
-    - all
-  - name: CentOS
-    versions:
-    - all
-  - name: Redhat
-    versions:
-    - all
-  categories:
+    - name: EL
+      versions:
+      - all
+    - name: GenericUNIX
+      versions:
+      - all
+    - name: Fedora
+      versions:
+      - all
+    - name: opensuse
+      versions:
+      - all
+    - name: GenericBSD
+      versions:
+      - all
+    - name: FreeBSD
+      versions:
+      - all
+    - name: Ubuntu
+      versions:
+      - all
+    - name: SLES
+      versions:
+      - all
+    - name: GenericLinux
+      versions:
+      - all
+    - name: Debian
+      versions:
+      - all
+  galaxy_tags:
     - packaging
     - web
-    - php
-    - composer

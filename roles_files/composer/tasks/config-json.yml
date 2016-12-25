@@ -1,0 +1,32 @@
+---
+- name: Ensure directory ~/.composer exists for www-data
+  file: path="{{ www_data_composer_home_path }}" state=directory group=www-data owner=www-data
+
+- name: Add config.json to www-data home composer
+  template:
+    src: "{{ config_template_file }}"
+    dest: "{{ www_data_composer_home_path }}/config.json"
+    owner: www-data
+    group: www-data
+
+- name: Ensure directory ~/.composer exists for ubuntu
+  file: path="{{ ubuntu_composer_home_path }}" state=directory group=ubuntu owner=ubuntu
+
+- name: Add config.json to ubuntu home composer
+  template:
+    src: "{{ config_template_file }}"
+    dest: "{{ ubuntu_composer_home_path }}/config.json"
+    owner: ubuntu
+    group: ubuntu
+
+- name: Ensure directory ~/.composer exists for root
+  file: path="{{ root_composer_home_path }}" state=directory group=ubuntu owner=ubuntu
+  when: dev_env is undefined or not dev_env
+
+- name: Add config.json to root home composer
+  template:
+    src: "{{ config_template_file }}"
+    dest: "{{ root_composer_home_path }}/config.json"
+    owner: root
+    group: root
+  when: dev_env is undefined or not dev_env

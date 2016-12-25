@@ -1,56 +1,68 @@
-# ansible-role-composer
+# Ansible Role: Composer
 
-[![License](https://img.shields.io/badge/License-MIT%20License-blue.svg)](https://github.com/kosssi/ansible-role-composer/blob/master/LICENSE)
-[![Build Status](https://travis-ci.org/kosssi/ansible-role-composer.svg?branch=master)](https://travis-ci.org/kosssi/ansible-role-composer)
+[![Build Status](https://travis-ci.org/geerlingguy/ansible-role-composer.svg?branch=master)](https://travis-ci.org/geerlingguy/ansible-role-composer)
 
-Installs Composer, the PHP Dependency Manager.
+Installs Composer, the PHP Dependency Manager, on any Linux or UNIX system.
 
-## Role Defaults Variables
+## Requirements
+
+  - `php` (version 5.4+) should be installed and working (you can use the `geerlingguy.php` role to install).
+  - `git` should be installed and working (you can use the `geerlingguy.git` role to install).
+
+## Role Variables
+
+Available variables are listed below, along with default values (see `defaults/main.yml`):
 
     composer_path: /usr/local/bin/composer
-    composer_update: true
-    composer_update_day: 20
 
-The path where composer will be installed and available to your system. Should be in your user's `$PATH` so you can run
-commands simply with `composer` instead of the full path.
+The path where composer will be installed and available to your system. Should be in your user's `$PATH` so you can run commands simply with `composer` instead of the full path.
 
-You can also setup a global composer directory and make the bin directory available in the `$PATH` automatically by:
- 
-    composer_path_env: true
-    composer_home_path: /opt/composer
+    composer_keep_updated: false
+
+Set this to `true` to update Composer to the latest release every time the playbook is run.
+
+    composer_home_path: '~/.composer'
     composer_home_owner: root
     composer_home_group: root
-    composer_global_packages:
-      phpunit/phpunit: "@stable"
 
-If your project use a lot of libraries from github, you may see next message during `composer install`:
+The `COMPOSER_HOME` path and directory ownership; this is the directory where global packages will be installed.
 
-    Could not fetch `...`, enter your GitHub credentials to go over the API rate limit
-    A token will be created and stored in "~/.composer/auth.json", your password will never be stored
-    To revoke access to this token you can visit https://github.com/settings/applications
+    composer_version: ''
 
-So your `composer install` can get stuck.
+You can install a specific release of Composer, e.g. `composer_version: '1.0.0-alpha11'`. If left empty the latest development version will be installed. Note that `composer_keep_updated` will override this variable, as it will always install the latest development version.
 
-To prevent that, you must configure github oauth token to go over the API rate limit. Visit https://github.com/settings/applications and generate personal access token and assign it to `composer_github_oauth` variable.
+    composer_global_packages: {}
 
-    composer_github_oauth: f03401aae1e276abb073f987c08a32410f462e73
+A list of packages to install globally (using `composer global require`). If you want to install any packages globally, add a list item with a dictionary with the `name` of the package and a `release`, e.g. `- { name: phpunit/phpunit, release: "4.7.*" }`. The 'release' is optional, and defaults to `@stable`.
+
+    composer_add_to_path: true
+
+If `true`, and if there are any configured `composer_global_packages`, the `vendor/bin` directory inside `composer_home_path` will be added to the system's default `$PATH` (for all users).
+
+    composer_github_oauth_token: ''
+
+GitHub OAuth token, used to avoid GitHub API rate limiting errors when building and rebuilding applications using Composer. Follow GitHub's directions to [Create a personal access token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/) if you run into these rate limit errors.
+
+    php_executable: php
+
+The executable name or full path to the PHP executable. This is defaulted to `php` if you don't override the variable.
+
+## Dependencies
+
+None (but make sure you've installed PHP; the `geerlingguy.php` role is recommended).
 
 ## Example Playbook
 
+    - hosts: servers
       roles:
-        - { role: kosssi.composer }
+        - geerlingguy.composer
 
-## Tests
+After the playbook runs, `composer` will be placed in `/usr/local/bin/composer` (this location is configurable), and will be accessible via normal system accounts.
 
-If you have vagrant, you can test this role:
+## License
 
-    cd tests
-    vagrant up
-    vagrant provision
+MIT / BSD
 
-## Special thanks to contributors
+## Author Information
 
-* [jnakatsui](https://github.com/jnakatsui)
-* [Yosh](https://github.com/yoshz)
-* [Johnny Robeson](https://github.com/jrobeson)
-* [Sebastian Krebs](https://github.com/KingCrunch)
+This role was created in 2014 by [Jeff Geerling](http://www.jeffgeerling.com/), author of [Ansible for DevOps](https://www.ansiblefordevops.com/).

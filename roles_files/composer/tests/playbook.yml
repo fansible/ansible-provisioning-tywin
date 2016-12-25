@@ -1,9 +1,0 @@
----
-
-- hosts: all
-  sudo: true
-  vars:
-    composer_github_oauth: f03401aae1e276abb073f987c08a32410f462e73
-  roles:
-    - { role: common,                      tags: apt      }
-    - { role: ../../ansible-role-composer, tags: composer }

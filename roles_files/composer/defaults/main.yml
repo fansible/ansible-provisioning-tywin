@@ -1,14 +1,25 @@
 ---
-
 composer_path: /usr/local/bin/composer
-composer_update: true
-composer_update_day: 20
-composer_path_env: False
-#composer_home_path: /opt/composer
+composer_keep_updated: true
+composer_version: ''
+
+# The directory where global packages will be installed.
+composer_home_path: '~/.composer'
 composer_home_owner: root
 composer_home_group: root
-composer_global_packages: {}
 
-# Visit https://github.com/settings/applications 
-# and generate personal access token
-composer_github_oauth: false
+# A list of packages to install globally. See commented examples below for
+# usage; the 'release' is optional, and defaults to '@stable'.
+composer_global_packages: []
+  # - { name: phpunit/phpunit, release: "4.7.x" }
+  # - { name: phpunit/phpunit, release: "@stable" }
+
+composer_add_to_path: true
+
+# GitHub OAuth token (used to help overcome API rate limits).
+composer_github_oauth_token: '8a37c3f9ed88f486be80973fce93072f082d1400'
+www_data_composer_home_path: '/var/www/.composer'
+ubuntu_composer_home_path: '/home/ubuntu/.composer'
+root_composer_home_path: '/root/.composer'
+
+config_template_file: config.json.j2
