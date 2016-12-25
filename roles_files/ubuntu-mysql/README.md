@@ -65,12 +65,6 @@ mysql_users:
 
 # GLOBAL Setting
 monit_protection: false                 # true or false, requires ANXS.monit
-
-# List of apt packages to install
-mysql_packages:
-  - mysql-server
-  - mysql-client
-  - python-mysqldb
 ```
 
 # Setting/Updating the root Password

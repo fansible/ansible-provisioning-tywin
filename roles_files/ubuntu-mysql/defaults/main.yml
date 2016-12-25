@@ -41,9 +41,3 @@ mysql_databases: []
 
 # List of users to be created
 mysql_users: []
-
-# List of apt packages to install
-mysql_packages:
-  - mysql-server
-  - mysql-client
-  - python-mysqldb
