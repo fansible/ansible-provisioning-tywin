@@ -1,5 +1,6 @@
 ---
+- name: Install mongodb
+  apt: name=mongodb state=present
 
-- include: mongodb.yml
-  when: mongodb_enabled
-  tags: [mongodb]
+- name: Ensure MongoDB is started at launch
+  service: name=mongodb enabled=yes
