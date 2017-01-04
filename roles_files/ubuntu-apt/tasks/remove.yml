@@ -4,5 +4,5 @@
   apt:
     pkg="{{ item }}"
     state=absent
-  with_items: apt_remove
+  with_items: "{{ apt_remove|default([]) }}"
   when: apt_remove

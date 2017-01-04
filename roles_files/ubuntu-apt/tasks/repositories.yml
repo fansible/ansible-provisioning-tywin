@@ -4,7 +4,7 @@
   apt_repository:
     repo="{{ item }}"
     update_cache=yes
-  with_items: apt_install_repositories
+  with_items: "{{ apt_install_repositories|default([]) }}"
   when: apt_install_repositories
 
 - name: Remove repositories.
@@ -12,5 +12,5 @@
     repo="{{ item }}"
     state=absent
     update_cache=yes
-  with_items: apt_remove_repositories
+  with_items: "{{ apt_remove_repositories|default([]) }}"
   when: apt_remove_repositories

@@ -4,12 +4,12 @@
   apt:
     pkg="{{ item }}"
     state=present
-  with_items: "{{apt_common_packages}}"
+  with_items: "{{ apt_common_packages|default([]) }}"
   when: apt_common_packages is defined
 
 - name: Install Specific packages.
   apt:
     pkg="{{ item }}"
     state=present
-  with_items: "{{apt_specific_packages}}"
+  with_items: "{{ apt_specific_packages|default([]) }}"
   when: apt_specific_packages is defined

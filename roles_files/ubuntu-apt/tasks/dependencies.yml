@@ -4,5 +4,5 @@
   apt:
     pkg="{{ item }}"
     state=present
-  with_items: apt_dependencies
+  with_items: "{{ apt_dependencies|default([]) }}"
   when: apt_dependencies
