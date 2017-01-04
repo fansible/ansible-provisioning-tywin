@@ -14,9 +14,16 @@ Only tested on ubuntu for now.
 
 ```yaml
 nodejs_enabled: yes                       # The role is enabled
+nodejs_version: 5.9.0
+nodejs_major_version: 5.x                 # This will determine the repo from nodejs.org used
+nodejs_install: pkg                       # Install nodejs from packages, sources or binary
+                                          # (pkg|src|bin)
 
-nodejs_repository: ppa:chris-lea/node.js  # NodeJS PPA or False for skip
 nodejs_npm_modules: []                    # List modules which will be installed
+
+nodejs_home: /usr/lib/nodejs              # The directory where nodejs will be installed
+nodejs_src_url: "http://nodejs.org/dist/v{{nodejs_version}}/node-v{{nodejs_version}}.tar.gz"
+nodejs_bin_url: "http://nodejs.org/dist/v{{nodejs_version}}/node-v{{nodejs_version}}-{{ansible_system|lower}}-x{{ansible_userspace_bits|replace('32', '86')}}.tar.gz"
 ```
 
 #### Usage

@@ -12,7 +12,7 @@ This have been tested with the Ubuntu OS. It should work with many other various
 This is what you will need to install if you haven't done yet:
 
 * **Python 2.7**
-* [Ansible](http://docs.ansible.com/intro_installation.html) (> 1.8.4 & < 2.0 ). Compatibility with 2.0 will arrive soon. 
+* [Ansible](http://docs.ansible.com/intro_installation.html) (>2.0)
 * [Vagrant](http://www.vagrantup.com/downloads.html)
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 * nfs `sudo apt-get install nfs-kernel-server`

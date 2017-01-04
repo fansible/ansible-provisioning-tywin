@@ -1,6 +1,6 @@
 # Ansible Role: PHP-XDebug
 
-Installs PHP [XDebug](http://xdebug.org/) on Ubuntu Xenial.
+Installs PHP [XDebug](http://xdebug.org/) on Ubuntu Xenial (16.04).
 
 ## Requirements
 
@@ -35,7 +35,7 @@ The IDE key to use in the URL when making Xdebug requests (e.g. `http://example.
 
     - hosts: webservers
       roles:
-        - ubuntu-xdebug
+        - xdebug
 
 ## License
 

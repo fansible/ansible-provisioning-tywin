@@ -11,4 +11,4 @@
 
 - name: Install NPM modules
   npm: name={{item}} global=yes
-  with_items: nodejs_npm_modules
+  with_items: "{{nodejs_npm_modules}}"

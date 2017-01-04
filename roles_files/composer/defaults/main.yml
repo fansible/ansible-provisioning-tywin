@@ -1,6 +1,6 @@
 ---
 composer_path: /usr/local/bin/composer
-composer_keep_updated: true
+composer_keep_updated: false
 composer_version: ''
 
 # The directory where global packages will be installed.
@@ -17,9 +17,4 @@ composer_global_packages: []
 composer_add_to_path: true
 
 # GitHub OAuth token (used to help overcome API rate limits).
-composer_github_oauth_token: '8a37c3f9ed88f486be80973fce93072f082d1400'
-www_data_composer_home_path: '/var/www/.composer'
-ubuntu_composer_home_path: '/home/ubuntu/.composer'
-root_composer_home_path: '/root/.composer'
-
-config_template_file: config.json.j2
+composer_github_oauth_token: ''
