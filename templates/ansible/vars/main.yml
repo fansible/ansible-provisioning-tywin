@@ -12,8 +12,11 @@ apt_remove_repositories: []
 apt_remove: []
 nodejs_version: 4
 
-{% for service in selected_services %}
-{% if service == 'ubuntu-symfony-nginx' %}
+{% for role in roles %}
+{% if role == 'ubuntu-symfony-nginx' %}
 composer_update: false
+{% endif %}
+{% if role == 'ubuntu-postgresql' %}
+postgresql_version: 9.6
 {% endif %}
 {% endfor %}
