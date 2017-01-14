@@ -1,11 +1,11 @@
-# file: mysql/tasks/users.yml
-
-- name: MySQL | Make sure the MySQL users are present
+---
+- name: Ensure MySQL users are present.
   mysql_user:
-    name: "{{item.name}}"
-    password: "{{item.pass | default('pass')}}"
-    priv: "{{item.priv | default('*.*:ALL')}}"
-    state: present
-    host: "{{item.host | default('localhost')}}"
-  with_items: "{{mysql_users}}"
-  when: mysql_users|length > 0
+    name: "{{ item.name }}"
+    host: "{{ item.host | default('localhost') }}"
+    password: "{{ item.password }}"
+    priv: "{{ item.priv | default('*.*:USAGE') }}"
+    state: "{{ item.state | default('present') }}"
+    append_privs: "{{ item.append_privs | default('no') }}"
+  with_items: "{{ mysql_users }}"
+  no_log: true

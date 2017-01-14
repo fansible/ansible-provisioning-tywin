@@ -1,7 +1,3 @@
-# file: mysql/handlers/main.yml
-
+---
 - name: restart mysql
-  service:
-    name: mysql
-    state: restarted
-    enabled: yes
+  service: "name={{ mysql_daemon }} state=restarted sleep=5"

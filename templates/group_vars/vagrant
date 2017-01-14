@@ -14,7 +14,7 @@ mysql_databases:
 mysql_users:
   - name: {% if database_user is defined %}{{ database_user }}{% else %}vagrant{% endif %}
 
-    pass: {% if database_password is defined %}{{ database_password }}{% else %}vagrant{% endif %}
+    password: {% if database_password is defined %}{{ database_password }}{% else %}vagrant{% endif %}
 
 {% endif %}
 
