@@ -1,6 +1,6 @@
 server {
     listen      80;
-    server_name  {{ domain_name }};
+    server_name  {{ inventory_hostname }};
 
     root /var/www/{{ project_name }}/current/www;
     index {{ index_default }};

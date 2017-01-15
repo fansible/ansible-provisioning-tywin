@@ -1,8 +1,6 @@
 ---
 - name: install
   apt: name=nginx state=latest update_cache=true cache_valid_time=3600
-  tags:
-  - packages
 
 - name: remove default site conf
   file: path=/etc/nginx/conf.d/default state=absent

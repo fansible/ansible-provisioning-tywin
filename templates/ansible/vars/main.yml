@@ -1,16 +1,9 @@
 ---
 #PUT here your main variable
-timezone: {{ timezone }}
 project_name: {{ project_name }}
 port: {{ port }}
 apt_install:
   - git
-
-# Needed for the apt role to work with ansible 2.0
-apt_install_repositories: []
-apt_remove_repositories: []
-apt_remove: []
-nodejs_version: 4
 
 {% for role in roles %}
 {% if role == 'ubuntu-symfony-nginx' %}
