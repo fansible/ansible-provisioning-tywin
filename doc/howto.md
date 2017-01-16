@@ -15,7 +15,7 @@ You can now find your provisioning in the `devops` directory
 3) Create the VM
 You can create the VM with `vagrant up`.
 
-4) Assuming that your key is in `~/.ssh/id_rsa.pub`, put your ssh key in the vagrant:
+4) Assuming that your key is in `~/.ssh/id_rsa.pub`, put your ssh key in the vagrant to be able to ssh into it:
 
 
     vagrant ssh -c "echo '`cat ~/.ssh/id_rsa.pub`' >> ~/.ssh/authorized_keys"
