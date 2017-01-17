@@ -60,7 +60,7 @@ def main(argv):
     if project_config['project_type'] == 'symfony':
         generate_deployment_files(project_config)
 
-    print "The provisioning has been generated. Check out the `devops` directory"
+    print "\033[92mThe provisioning has been generated. Check out the `devops` directory\033[0m"
 
 def user_input(project_config):
     project_name_input = raw_input("What's the name of the project? (Default:"+
