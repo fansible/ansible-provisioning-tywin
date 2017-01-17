@@ -13,7 +13,7 @@ This is what you will need to install if you haven't done yet:
 
 * **Python 2.7**
 * [Ansible](http://docs.ansible.com/intro_installation.html) (>2.0)
-* [Vagrant](http://www.vagrantup.com/downloads.html)
+* [Vagrant](http://www.vagrantup.com/downloads.html) I advise to download it from their website to have the last version.
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 * nfs `sudo apt-get install nfs-kernel-server`
 * PyYAML and Jinja2 for python
