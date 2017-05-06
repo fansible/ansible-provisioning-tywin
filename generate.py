@@ -1,4 +1,4 @@
-import os, shutil, sys, imp, json
+import os, shutil, sys, imp, json, socket
 
 if sys.version_info.major != 2:
     print "This program only works with python 2.6 or 2.7 (like Ansible)"
@@ -45,6 +45,7 @@ TEMPLATE_ENVIRONMENT = Environment(
     loader=FileSystemLoader(DIRECTORY_TYWIN_TEMPLATES),
     trim_blocks=True
 )
+VAGRANT_IP = '10.0.0.10'
 
 def main(argv):
     project_config = project_type_finder()
@@ -75,11 +76,25 @@ def user_input(project_config):
         if not(role in project_config['roles']):
             do_you_need_this_role(role, project_config)
 
+    project_config['vagrant_ip'] = ask_vagrant_ip()        
+
 def do_you_need_this_role(role_name, project_config):
     user_answer = raw_input("Do you need "+ role_name +"[y/N] ?")
     if user_answer == "y" or user_answer == "Y":
         project_config['roles'].append(role_name)
 
+def ask_vagrant_ip():
+    vagrant_ip_input = raw_input("What's the ip adress of the Vagrant machine? (Default:"+
+        VAGRANT_IP + ")")
+    if vagrant_ip_input:
+        try:
+            socket.inet_aton(vagrant_ip_input)
+            #legal ip
+            return vagrant_ip_input
+        except socket.error:
+            return ask_vagrant_ip()
+    else:
+        return VAGRANT_IP       
 
 #TODO:add more project types
 def project_type_finder():

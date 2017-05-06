@@ -1,2 +1,2 @@
 [vagrant]
-10.0.0.10 ansible_ssh_user=ubuntu
+{{vagrant_ip}} ansible_ssh_user=ubuntu
