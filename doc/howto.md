@@ -25,7 +25,7 @@ If it's OK you can provision the VM
 5) Provision the VM
 
 Provision it with `ansible-playbook -i devops/provisioning/hosts/vagrant devops/provisioning/playbook.yml`.
-If something goes wrong you can go inside you vagrant and try do execute manually in your shell the Ansible task that is failing.
+If something goes wrong you can go inside your vagrant and try to execute manually in your shell the Ansible task that is failing.
 
 After that, your VM is now ready! You can see your project in your browser at the IP's adress (10.0.0.10 if you haven't changed anything) =)
 
