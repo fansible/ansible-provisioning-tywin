@@ -2,7 +2,7 @@
 #PUT here your main variable
 project_name: {{ project_name }}
 port: {{ port }}
-apt_install:
+apt_specific_packages:
   - git
 
 {% for role in roles %}
