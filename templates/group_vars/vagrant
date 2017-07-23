@@ -5,6 +5,9 @@
 dev_env: true
 {% endif %}
 
+{%- if role == 'ubuntu-php' -%}
+php_opcache_enable: 0
+{% endif %}
 
 {%- if role == 'ubuntu-mysql' -%}
 mysql_databases:
