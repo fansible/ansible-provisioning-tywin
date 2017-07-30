@@ -2,7 +2,7 @@
 
 {% for role in roles %}
 {%- if role == 'ubuntu-symfony-nginx' -%}
-dev_env: true
+dev_env: false
 {% endif %}
 
 
