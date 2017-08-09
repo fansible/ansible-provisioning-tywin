@@ -3,6 +3,14 @@ $IP = "{{ vagrant_ip }}"
 $MEMORY = ENV.has_key?('VM_MEMORY') ? ENV['VM_MEMORY'] : "1024"
 $CPUS = ENV.has_key?('VM_CPUS') ? ENV['VM_CPUS'] : "1"
 
+required_plugins = ["vagrant-hostsupdater"]
+required_plugins.each do |plugin|
+    unless Vagrant.has_plugin? plugin
+        system "vagrant plugin install #{plugin}" || exit!
+        exec "vagrant #{ARGV.join' '}"
+    end
+end
+
 Vagrant.configure("2") do |config|
   config.vm.hostname = "{{ project_name }}.dev"
   config.vm.box = $BOX
@@ -10,6 +18,7 @@ Vagrant.configure("2") do |config|
   config.ssh.forward_agent = true
 
   config.vm.synced_folder ".", "/var/www/{{ project_name }}/current", type: "nfs"
+  config.hostsupdater.aliases = ["{{ project_name }}.local"]
 
   config.vm.provider "virtualbox" do |v|
     v.name = "{{ project_name }}"
